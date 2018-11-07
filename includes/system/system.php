@@ -8,6 +8,11 @@ include_once 'function.php';
 
 $sys = new system($_config);
 
+if (isset($_config['db_log'])) 
+{
+	$sys->db_log = $_config['db_log'];
+}
+
 if (file_exists($sys->path['root'].'setting.php')) 
 {
 	include_once $sys->path['root'].'setting.php';

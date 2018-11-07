@@ -1,6 +1,5 @@
 <?php  if (!defined('_VALID_ACCESS')) exit('No direct script access allowed');
-$msg = array();
-$ok = 0;
+
 if ($_POST) 
 {
 	foreach ($_POST as $key => $value) 

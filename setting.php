@@ -60,6 +60,21 @@ $_setting = array(
 				'tpl'    => 'header_menu',
 				'config' => array(
 					array(
+						'name' => 'Movie',
+						'icon' => 'fa-video-camera',
+						'link' => 'admin.movie',
+						),
+					array(
+						'name' => 'Movie Tag',
+						'icon' => 'fa-tags',
+						'link' => 'admin.movie_tag',
+						),
+					array(
+						'name' => 'Website',
+						'icon' => 'fa-chrome',
+						'link' => 'admin.website',
+						),
+					array(
 						'name' => 'Setting',
 						'icon' => 'fa-cogs',
 						'link' => 'admin.setting',

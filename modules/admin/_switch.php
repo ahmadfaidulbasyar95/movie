@@ -2,24 +2,29 @@
 $sys->mod_allowed_user($sys->admin_access_id);
 $sys->set_icon(admin_img(get_config('logo')));
 
+$output = array();
+$msg    = array();
+$ok     = 0;
+
 switch ($sys->mod['task']) {
 
 	case 'main':
-	case 'ukm':
-		include 'ukm.php';
+	case 'movie':
+		include 'movie.php';
 		break;
-	case 'bau':
-		include 'bau.php';
+
+	case 'movie_tag':
+		include 'movie_tag.php';
 		break;
-	case 'baak':
-		include 'baak.php';
+
+	case 'movie_tags':
+		include 'movie_tags.php';
 		break;
-	case 'wr3':
-		include 'wr3.php';
+
+	case 'website':
+		include 'website.php';
 		break;
-	case 'pembina':
-		include 'pembina.php';
-		break;
+
 	case 'setting':
 		include 'setting_app.php';
 		break;

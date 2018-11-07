@@ -7,8 +7,9 @@ $_config = array(
 						'PASSWORD' => '1',
 						'DATABASE' => 'db_my_movie'
 						),
-	'patch' => '/mygit/movie/',
-	'salt'  => 'jhbrf8734hfh',
+	'patch'  => '/mygit/movie/',
+	'salt'   => 'jhbrf8734hfh',
+	'db_log' => '1',
 	);
 
 ?>

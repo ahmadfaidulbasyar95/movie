@@ -15,10 +15,12 @@ class system
   public $blocks          = array();
   public $meta_title      = 'Title';
   public $meta_icon       = '';
+  public $db_log          = 0;
+  public $db_log_data     = array();
 
-  private $config          = array();
-  private $db              = 'db';
-  private $salt            = 'asdfghjkl1234567890';
+  private $config = array();
+  private $db     = 'db';
+  private $salt   = 'asdfghjkl1234567890';
   
   function __construct($_config)
   {
@@ -132,7 +134,32 @@ class system
       die('Connect Error ('.$connect->connect_errno.')'.$connect->connect_error);
     }
 
-    $result=$connect->query($query);
+    $result = $connect->query($query);
+
+    if ($this->db_log || $connect->error) 
+    {
+      $log = array($query);
+
+      if($connect->error)
+      {
+        $result = (empty($type) || $type == 'one') ? '' : array();
+        $type   = '';
+        $log[]  = '#'.$connect->errno.' - '.$connect->error;
+      }
+
+      foreach ((array)debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,10) as $key => $value) {
+        $value['file'] = str_replace('\\', '/', $value['file']);
+        $log[]         = $value['file'].':'.$value['line'];
+      }
+
+      $this->db_log_data[] = $log;
+
+      if($connect->error and $this->db_log)
+      {
+        pr($log);
+      }
+    }
+
     $output=array();
 
     switch ($type) {
@@ -195,6 +222,62 @@ class system
     }
     return $output;
   }
+  public function db_update($data=array(),$table='',$id='',$is_delete=0,$id_field='id')
+  {
+    $out   = '';
+    $table = addslashes($table);
+    $id    = addslashes($id);
+    if ($id and $is_delete and $table) 
+    {
+      if ($this->db("DELETE FROM `$table` WHERE `$id_field`='$id'")) 
+      {
+        $out = $id;
+      }
+    }else
+    {
+      if (is_array($data) and $table and $data) 
+      {
+        $query = [];
+        if (empty($id)) 
+        {
+          $id_temp         = id();
+          $data[$id_field] = $id_temp;
+        }
+
+        foreach ($data as $key => $value) 
+        {
+          $query[] = ' `'.$key.'`="'.addslashes($value).'"';
+        }
+
+        if ($query) 
+        {
+          $query = 'SET '.implode(',', $query);
+          if ($id) 
+          {
+            if ($this->db("UPDATE `$table` $query WHERE `$id_field`='$id'")) 
+            {
+              $out = $id;
+            }
+          }else
+          {
+            if ($this->db("INSERT INTO `$table` $query")) 
+            {
+              $out = $id_temp;
+            }
+          }
+        }
+      }
+    }
+    return $out;
+  }
+  public function db_log()
+  {
+    if ($this->db_log_data) 
+    {
+      pr($this->db_log_data);
+    }
+  }
+
   /*Module And Block*/
   public function mod_change($mod_name='',$mod_task='')
   {
@@ -217,9 +300,12 @@ class system
 
     if ($output['name'] and empty($output['task'])) $output['task'] = 'main' ;
 
-    $output['root']     = $this->path['root'].'modules/'.$output['name'].'/';
-    $output['url']      = $this->path['url'].$output['name'].'/';
-    $output['url_task'] = $this->path['url'].$output['name'].'/'.$output['task'].'/';
+    $output['root']        = $this->path['root'].'modules/'.$output['name'].'/';
+    $output['url']         = $this->path['url'].$output['name'].'/';
+    $output['url_task']    = $this->path['url'].$output['name'].'/'.$output['task'].'/';
+    $output['url_current'] = $this->path['url'].implode('/', $mod);
+
+    if(@$_SERVER['QUERY_STRING']) $output['url_current'] .= '?'.$_SERVER['QUERY_STRING'];
     
     if (file_exists($output['root'].'_switch.php')) 
     {
@@ -291,7 +377,7 @@ class system
     if ($tpl) 
     {
       $tpl  .= '.html.php';
-      $patch = @debug_backtrace()['0']['file'];
+      $patch = @debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,1)['0']['file'];
       $patch = str_replace('\\', '/', $patch);
       $patch = explode('/', $patch);
       $patch = str_replace(end($patch), '', implode('/', $patch));

@@ -170,6 +170,137 @@ function set_config($config_name='',$config_value='')
 	}
 }
 
+function url_change($url='')
+{
+	echo '<script type="text/javascript"> window.history.replaceState("URL", "Title", "'.$url.'"); </script>';
+}
+
+function curl($url, $param=array(), $option=array(), $is_debug = false)
+{
+	if(!preg_match('~^(?:ht|f)tps?://~', $url) && file_exists($url))
+	{
+		return file_get_contents($url);
+	}else{
+		if(!preg_match('~^(?:ht|f)tps?://~', $url)) {
+			$url = 'http://'.$url;
+		}
+	}
+	$temp = '/tmp/curl';
+	if(is_numeric($param))
+	{
+		$text			= unserialize(curl($temp.'_'.md5($url)));
+		if(!empty($text[0]) && $text[0] > time())
+		{
+			return @$text[1];
+		}
+		$presists	= intval($param);
+		$param		= array();
+	}else $presists	= 0;
+  $default = array(
+  	'CURLOPT_REFERER'    => !empty($_SESSION['CURLOPT_REFERER']) ? $_SESSION['CURLOPT_REFERER'] : $url,
+  	'CURLOPT_POST'       => empty($param) ? 0 : 1,
+  	'CURLOPT_POSTFIELDS' => $param,
+  	'CURLOPT_USERAGENT'  => @$_SERVER['HTTP_USER_AGENT'],
+  	'CURLOPT_HEADER'     => 1,
+  	'CURLOPT_HTTPHEADER' => array(
+  		'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  		'Accept-Language: en-US,en;q=0.5',
+  		'Accept-Encoding: gzip, deflate',
+  		'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7',
+  		'Keep-Alive: 300',
+  		'Connection: keep-alive',
+  		'Content-Type: application/x-www-form-urlencoded'),
+  	'CURLOPT_FOLLOWLOCATION' => 0,
+  	'CURLOPT_RETURNTRANSFER' => 1,
+  	'CURLOPT_COOKIEFILE'     => $temp,
+  	'CURLOPT_COOKIEJAR'      => $temp
+  	);
+  foreach ($option as $key => $value) {
+  	if (empty($value) && $value!='0') {
+  		unset($option[$key]);
+  	}
+  }
+  $data = array_merge($default, $option);
+  $data['CURLOPT_POST'] = empty($data['CURLOPT_POSTFIELDS']) ? 0 : 1;
+
+  if($data['CURLOPT_POST']) {
+  	$data['CURLOPT_POSTFIELDS'] = http_build_query($data['CURLOPT_POSTFIELDS']);
+  }else unset($data['CURLOPT_POSTFIELDS']);
+
+  // $data['CURLOPT_HTTPHEADER'] = array_map('urlencode', $data['CURLOPT_HTTPHEADER']);
+  $data['CURLOPT_HTTPHEADER'] = $data['CURLOPT_HTTPHEADER'];
+
+  if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off')) {
+  }else unset($data['CURLOPT_FOLLOWLOCATION']);
+
+  if(strtolower(substr($url, 0, 5)) == 'https') {
+  	$data['CURLOPT_FOLLOWLOCATION'] = 0;
+  	$data['CURLOPT_SSL_VERIFYHOST'] = 0;
+  }
+
+  $init = curl_init( $url );
+  foreach ($data as $key => $value) {
+  	curl_setopt($init, constant($key), $value);
+  }
+	$out  = curl_exec($init);
+	$info = curl_getinfo($init);
+	if (!empty($info['header_size'])) {
+		$header = substr($out, 0, $info['header_size']);
+		$output = substr($out, $info['header_size']);
+	}else{
+		$header = '';
+		$output = $out;
+	}
+  if (!empty($info['redirect_url'])) {
+  	$_SESSION['CURLOPT_REFERER'] = $info['redirect_url'];
+  }else{
+	  $_SESSION['CURLOPT_REFERER'] = $url;
+  }
+  if ( $is_debug )
+  {
+  	$debug = array('url' => $url);
+  	if(!empty($data['CURLOPT_POSTFIELDS']))
+  	{
+  		$debug['params'] = htmlentities($data['CURLOPT_POSTFIELDS']);
+  	}
+    $a = curl_errno( $init );
+    if(!empty($a))
+    {
+    	$debug['ErrNum'] = $a;
+    }
+    $a = curl_error( $init );
+    if(!empty($a))
+    {
+    	$debug['ErrMsg'] = $a;
+    }
+    if(empty($debug))
+    {
+    	echo $output;
+    }else{
+	    $debug['info']   = $info;
+	    $debug['header'] = $header;
+	    $debug['output'] = $output;
+	    if (!empty($_POST['is_plain'])) {
+		    print_r($debug);
+	    }else{
+	    	echo '<pre>'.print_r($debug, 1).'</pre>';
+	    }
+    }
+  }
+  curl_close($init);
+  if($presists > 0 && !empty($output))
+  {
+		if ( $fp = @fopen($temp.'_'.md5($url), 'w+'))
+		{
+			flock($fp, LOCK_EX);
+			fwrite($fp, serialize(array(strtotime('+'.$presists.' SECOND'), $output)));
+			flock($fp, LOCK_UN);
+			fclose($fp);
+		}
+  }
+  return $output;
+}
+
 if (!function_exists('pr')) 
 {
 	function pr($text='', $return = false)
