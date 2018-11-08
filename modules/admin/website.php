@@ -6,6 +6,10 @@ switch (@$sys->mod['sub_task']['0'])
 	case 'edit':
 		include 'website_edit.php';
 		break;
+
+	case 'php_movies':
+		include 'website_php_movies.php';
+		break;
 	
 	default:
 		include 'website_list.php';

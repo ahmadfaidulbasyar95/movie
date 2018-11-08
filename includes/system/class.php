@@ -17,6 +17,7 @@ class system
   public $meta_icon       = '';
   public $db_log          = 0;
   public $db_log_data     = array();
+  public $system_run      = 1;
 
   private $config = array();
   private $db     = 'db';
@@ -35,6 +36,11 @@ class system
 
     $this->path = $actual_link;
     $this->salt = @$_config['salt'];
+  }
+
+  public function stop()
+  {
+    $this->system_run = 0; 
   }
 
   public function encode($val='')
@@ -240,13 +246,24 @@ class system
         $query = [];
         if (empty($id)) 
         {
-          $id_temp         = id();
-          $data[$id_field] = $id_temp;
+          if (array_key_exists($id_field, $data)) 
+          {
+            $id_temp         = $data[$id_field];
+          }else
+          {
+            $id_temp         = id();
+            $data[$id_field] = $id_temp;
+          }
         }
+
+        $allowed_field = $this->db("DESC `$table`",'col');
 
         foreach ($data as $key => $value) 
         {
-          $query[] = ' `'.$key.'`="'.addslashes($value).'"';
+          if (in_array($key, $allowed_field)) 
+          {
+            $query[] = ' `'.$key.'`="'.addslashes($value).'"';
+          }
         }
 
         if ($query) 
@@ -301,7 +318,9 @@ class system
     if ($output['name'] and empty($output['task'])) $output['task'] = 'main' ;
 
     $output['root']        = $this->path['root'].'modules/'.$output['name'].'/';
+    $output['root_upload'] = $this->path['root'].'images/modules/'.$output['name'].'/';
     $output['url']         = $this->path['url'].$output['name'].'/';
+    $output['url_upload']  = $this->path['url'].'images/modules/'.$output['name'].'/';
     $output['url_task']    = $this->path['url'].$output['name'].'/'.$output['task'].'/';
     $output['url_current'] = $this->path['url'].implode('/', $mod);
 

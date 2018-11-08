@@ -27,6 +27,7 @@
 							<td><?php echo $value['name']; ?></td>
 							<td><?php echo $value['url']; ?></td>
 							<td>
+								<a href="<?php echo $sys->mod['url_task']; ?>php_movies?id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-info">PHP Movies</a>
 								<a href="<?php echo $sys->mod['url_task']; ?>edit?id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
 								<a onclick="return confirm('Delete ?')" href="<?php echo $sys->mod['url_task']; ?>?id=<?php echo urlencode($value['id']); ?>&act=1" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 							</td>

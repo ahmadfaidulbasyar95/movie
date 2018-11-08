@@ -18,6 +18,11 @@ function is_url($value='')
 	}
 }
 
+function is_json($string='') {
+	json_decode($string);
+	return (json_last_error() == JSON_ERROR_NONE);
+}
+
 function client_mac($ip='')
 {
 	if(empty($ip)) $ip = client_ip();
@@ -48,7 +53,7 @@ function config_decode($string = '')
 	$out = json_decode($string, 1);
 	foreach ((array)$out as $key => $value) 
 	{
-		$out[$key] = urldecode($value);
+		$out[$key] = (is_json($value)) ? call_user_func(__FUNCTION__, $value) : urldecode($value);
 	}
 	if (empty($out))
 	{
@@ -60,7 +65,7 @@ function config_encode($array = array())
 {
 	foreach ((array)$array as $key => $value) 
 	{
-		$array[$key] = urlencode($value);
+		$array[$key] = (is_array($value)) ? call_user_func(__FUNCTION__, $value) :  urlencode($value);
 	}
 	return json_encode($array);
 }
@@ -172,6 +177,8 @@ function set_config($config_name='',$config_value='')
 
 function url_change($url='')
 {
+	global $sys;
+	$sys->mod['url_current'] = $url;
 	echo '<script type="text/javascript"> window.history.replaceState("URL", "Title", "'.$url.'"); </script>';
 }
 
@@ -299,6 +306,12 @@ function curl($url, $param=array(), $option=array(), $is_debug = false)
 		}
   }
   return $output;
+}
+
+function php_run($php='')
+{
+	global $sys,$output;
+	return eval($php);
 }
 
 if (!function_exists('pr')) 

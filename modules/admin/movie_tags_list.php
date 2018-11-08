@@ -18,7 +18,6 @@ switch (@$_GET['act']) {
 			if (@$_GET['return']) 
 			{
 				url_change($_GET['return']);
-				$sys->mod['url_current'] = $_GET['return'];
 			}else
 			{
 				url_change($sys->mod['url_task']);

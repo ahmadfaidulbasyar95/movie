@@ -84,6 +84,12 @@ if ($sys->mod['allowed_user'])
 	}
 }
 
-include $sys->template['root'].$sys->template['layout'];
+if ($sys->system_run) 
+{
+	include $sys->template['root'].$sys->template['layout'];
+}else
+{
+	echo $sys->content;
+}
 
 ?>
