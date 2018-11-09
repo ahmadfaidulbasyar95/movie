@@ -308,9 +308,9 @@ function curl($url, $param=array(), $option=array(), $is_debug = false)
   return $output;
 }
 
-function php_run($php='')
+function php_run($php='',$params='')
 {
-	global $sys,$output;
+	global $sys;
 	return eval($php);
 }
 

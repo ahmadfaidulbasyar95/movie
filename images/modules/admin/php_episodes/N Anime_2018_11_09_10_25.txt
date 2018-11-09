@@ -1,0 +1,21 @@
+//pr($params);
+$out = file_get_contents($params);
+
+$out = explode('<div class="episodelist list-group">', $out)[1];
+$out = explode('<div class="col-md-12">', $out)[0];
+preg_match_all('~href="(.*?)<\/a>~m', $out, $out,PREG_SET_ORDER, 0);
+
+$out1 = array();
+
+foreach ($out as $key => $value) {
+	$a = explode('" class="list-group-item list-episode-item ">', @$value[1]);
+	if (count($a)==2) 
+	{
+		$out1[] = array(
+			'link'  => $a['0'],
+			'eps' => $a['1']
+		);
+	}
+}
+
+return $out1;

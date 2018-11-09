@@ -21,6 +21,10 @@ switch ($sys->mod['task']) {
 		include 'movie_tags.php';
 		break;
 
+	case 'movie_website':
+		include 'movie_website.php';
+		break;
+
 	case 'website':
 		include 'website.php';
 		break;

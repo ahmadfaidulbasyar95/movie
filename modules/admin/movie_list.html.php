@@ -33,6 +33,7 @@
 							</td>
 							<td><?php echo $value['ep_last']; ?> of <?php echo $value['ep_total']; ?></td>
 							<td>
+								<a href="<?php echo $sys->mod['url']; ?>movie_website?m_id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-info">Website</a>
 								<a href="<?php echo $sys->mod['url_task']; ?>edit?id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
 								<a onclick="return confirm('Delete ?')" href="<?php echo $sys->mod['url_task']; ?>?id=<?php echo urlencode($value['id']); ?>&act=1" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 								<a href="<?php echo $sys->mod['url']; ?>movie_tags?m_id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-info"><i class="fa fa-tag"></i></a>

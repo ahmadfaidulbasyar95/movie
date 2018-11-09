@@ -7,9 +7,22 @@
 	</div>
 	<div class="panel-body">
 		<?php echo msg($msg); ?>
-		<form action="" method="POST" role="form" enctype="multipart/form-data" target="php_movies">
+		<form action="" method="POST" role="form" enctype="multipart/form-data" target="php_episodes">
 			<div class="form-group">
-				<textarea name="php_movies" class="form-control" rows="10" required="required"><?php echo @$output['php_movies']; ?></textarea>
+				<select name="list_url" class="form-control" required="required">
+					<?php 
+					foreach ((array)php_run($output['php_movies']) as $key => $value) 
+					{
+						if(!is_url(@$value['link'])) $value['link'] = $output['url'].@$value['link'];
+						?>
+						<option value="<?php echo @$value['link']; ?>" <?php if(@$value['link']==$output['url']) echo 'selected="selected"'; ?> ><?php echo @$value['title']; ?></option>
+						<?php 
+					}
+					?>
+				</select>
+			</div>
+			<div class="form-group">
+				<textarea name="php_episodes" class="form-control" rows="10" required="required"><?php echo @$output['php_episodes']; ?></textarea>
 			</div>
 			<?php 
 			if(@$_GET['return']) 
@@ -21,8 +34,8 @@
 			?>
 			<button type="submit" class="btn btn-info" name="act" value="preview">Execute</button>
 			<button type="submit" class="btn btn-primary" name="act" value="save" onclick="return confirm('Save ?');">Submit</button>
-			<a class="btn btn-warning" data-toggle="modal" href='#modal-php_movies'>Format Request</a>
-			<div class="modal fade" id="modal-php_movies">
+			<a class="btn btn-warning" data-toggle="modal" href='#modal-php_episodes'>Format Request</a>
+			<div class="modal fade" id="modal-php_episodes">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -33,12 +46,12 @@
 							<?php 
 							pr(array(
 									array(
-										'link'  => '[LINK]',
-										'title' => '[TITLE]'
+										'link' => '[LINK]',
+										'eps'  => '[EPISODE]'
 										),
 									array(
-										'link'  => '[LINK]',
-										'title' => '[TITLE]'
+										'link' => '[LINK]',
+										'eps'  => '[EPISODE]'
 										)
 									)
 								);
@@ -52,6 +65,6 @@
 </div>
 <div class="panel panel-info">
 	<div class="panel-body">
-		<iframe src="images/a.png" width="100%" height="600px" frameborder="0" name="php_movies"></iframe>
+		<iframe src="images/a.png" width="100%" height="600px" frameborder="0" name="php_episodes"></iframe>
 	</div>
 </div>
