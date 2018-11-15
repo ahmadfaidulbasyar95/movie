@@ -66,13 +66,13 @@ function user_update($user_id=0,$data=array(),$img_input_name='image')
 			}
 			if (@$_FILES[$img_input_name]['name'] and empty($img)) 
 			{
-				$msg = 'Image Not Allowed';
+				$msg[] = 'Image Not Allowed';
 			}
-			if ($sys->db('select 1 from user where username="'.addslashes($data['usr']).'" and id !="'.$user_id.'" ','one')) 
+			if ($sys->db('SELECT 1 FROM `user` WHERE `username`="'.addslashes($data['usr']).'" AND `id` !="'.$user_id.'" ','one')) 
 			{
 				$msg[] = 'Username Exists';
 			}
-			if ($sys->db('select 1 from user where email="'.addslashes($data['email']).'" and id !="'.$user_id.'" ','one')) 
+			if ($sys->db('SELECT 1 FROM `user` WHERE `email`="'.addslashes($data['email']).'" AND `id` !="'.$user_id.'" ','one')) 
 			{
 				$msg[] = 'Email Exists';
 			}
@@ -81,13 +81,13 @@ function user_update($user_id=0,$data=array(),$img_input_name='image')
 			{
 				$params = (@$data['params']) ? $data['params'] : array();
 				$params = user_params_file($user_id,$params,@$data['params_old']);
-				if($sys->db('update user set 
-												username="'.addslashes($data['usr']).'" , 
-												name="'.addslashes($data['name']).'" , 
-												email="'.addslashes($data['email']).'" 
+				if($sys->db('UPDATE `user` SET 
+												`username`="'.addslashes($data['usr']).'" , 
+												`name`="'.addslashes($data['name']).'" , 
+												`email`="'.addslashes($data['email']).'" 
 												'.$_img.', 
-												params="'.addslashes(config_encode($params)).'" 
-											where id="'.$user_id.'"'))
+												`params`="'.addslashes(config_encode($params)).'" 
+											WHERE `id`="'.$user_id.'"'))
 				{
 					if ($img) 
 					{
@@ -131,11 +131,11 @@ function user_create($data=array(),$img_input_name='image')
 		{
 			$msg[] = 'Password and Re-Password Does Not Match';
 		}
-		if ($sys->db('select 1 from user where username="'.addslashes($data['usr']).'"','one')) 
+		if ($sys->db('SELECT 1 FROM `user` WHERE `username`="'.addslashes($data['usr']).'"','one')) 
 		{
 			$msg[] = 'Username Exists';
 		}
-		if ($sys->db('select 1 from user where email="'.addslashes($data['email']).'"','one')) 
+		if ($sys->db('SELECT 1 FROM `user` WHERE `email`="'.addslashes($data['email']).'"','one')) 
 		{
 			$msg[] = 'Email Exists';
 		}
@@ -155,16 +155,16 @@ function user_create($data=array(),$img_input_name='image')
 			{
 				$params = (@$data['params']) ? $data['params'] : array();
 				$params = user_params_file($id,$params,@$data['params_old']);
-				if($sys->db('insert into user set 
-												username="'.addslashes($data['usr']).'" , 
-												password="'.$sys->encode(addslashes($data['pwd'])).'" , 
-												access="'.addslashes(@$data['access']).'" , 
-												active="1" , 
-												name="'.addslashes($data['name']).'" , 
-												email="'.addslashes($data['email']).'" 
+				if($sys->db('INSERT INTO `user` SET 
+												`username`="'.addslashes($data['usr']).'" , 
+												`password`="'.$sys->encode(addslashes($data['pwd'])).'" , 
+												`access`="'.addslashes(@$data['access']).'" , 
+												`active`="1" , 
+												`name`="'.addslashes($data['name']).'" , 
+												`email`="'.addslashes($data['email']).'" 
 												'.$_img.' , 
-												id="'.$id.'" , 
-												params="'.addslashes(config_encode($params)).'" '))
+												`id`="'.$id.'" , 
+												`params`="'.addslashes(config_encode($params)).'" '))
 				{
 					$user = $sys->db('SELECT * FROM `user` WHERE `id`="'.$id.'"','row');
 					if ($user) 
@@ -187,7 +187,7 @@ function user_delete($id='')
 	global $sys;
 	if ($id) 
 	{
-		$img = $sys->db('select image from user where id="'.addslashes($id).'"','one');
+		$img = $sys->db('SELECT `image` FROM `user` WHERE `id`="'.addslashes($id).'"','one');
 		if ($img) 
 		{
 			$z = $sys->path['root'].'images/modules/user/'.$img;
@@ -196,7 +196,7 @@ function user_delete($id='')
 				unlink($z);
 			}
 		}
-		$sys->db('delete from user where id="'.addslashes($id).'"');
+		$sys->db('DELETE FROM `user` WHERE `id`="'.addslashes($id).'"');
 		return 1;
 	}
 }
@@ -206,7 +206,7 @@ function user_detail($value='',$key='id')
 	$output = array();
 	if ($value and $key) 
 	{
-		$output = $sys->db('select * from user where '.addslashes($key).'="'.addslashes($value).'"','row');
+		$output = $sys->db('SELECT * FROM `user` WHERE '.addslashes($key).'="'.addslashes($value).'"','row');
 		if (@$output['image']) 
 		{
 			$output['image'] = user_img($output['image']);

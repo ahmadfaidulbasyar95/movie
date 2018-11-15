@@ -14,7 +14,6 @@
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>URL</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -24,8 +23,13 @@
 					{
 						?>
 						<tr>
-							<td><?php echo $value['name']; ?></td>
-							<td><?php echo $value['url']; ?></td>
+							<td>
+								<a target="blank" href="<?php echo $value['url']; ?>">
+									<span class="<?php echo ($value['active']) ? 'text-success' : 'text-danger' ?>" >
+										<?php echo $value['name']; ?>
+									</span>
+								</a>
+							</td>
 							<td>
 								<a href="<?php echo $sys->mod['url']; ?>movie_website?w_id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-info">Movie</a>
 								<a href="<?php echo $sys->mod['url_task']; ?>php_movies?id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-info">PHP Movies</a>

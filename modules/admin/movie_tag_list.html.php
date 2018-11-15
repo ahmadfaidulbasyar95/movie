@@ -14,7 +14,6 @@
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Link</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -24,8 +23,13 @@
 					{
 						?>
 						<tr>
-							<td><?php echo $value['name']; ?> / <?php echo $value['name_alt']; ?></td>
-							<td><?php echo $value['id_url']; ?> / <?php echo $value['id_url_alt']; ?></td>
+							<td>
+								<a href="<?php echo $value['id_url']; ?>" target="blank">
+									<span class="<?php echo ($value['active']) ? 'text-success' : 'text-danger' ?>" >
+										<?php echo $value['name']; ?>
+									</span>
+								</a>
+							</td>
 							<td>
 								<a href="<?php echo $sys->mod['url_task']; ?>edit?id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
 								<a onclick="return confirm('Delete ?')" href="<?php echo $sys->mod['url_task']; ?>?id=<?php echo urlencode($value['id']); ?>&act=1" class="btn btn-danger"><i class="fa fa-trash"></i></a>

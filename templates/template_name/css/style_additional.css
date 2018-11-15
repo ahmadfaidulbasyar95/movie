@@ -1,12 +1,23 @@
 .no_margin {
 	margin: 0 !important;
 }
+
 .no_padding {
 	padding: 0 !important;
 }
+.padding_5 {
+	padding: 5px;
+}
+.padding_10 {
+	padding: 10px;
+}
+
 .no_border {
 	border: 0 !important;
 }
+
+
+
 input, textarea, select, .btn, .alert, .panel-heading, .panel {
 	border-radius: 0 !important;
 }
@@ -21,4 +32,33 @@ input, textarea, select, .btn, .alert, .panel-heading, .panel {
 }
 a:hover {
 	text-decoration: none !important;
+}
+
+
+
+/*Ratio*/
+.ratio_3-4 ,
+.ratio_1-1 ,
+.ratio_4-3 ,
+.ratio_16-9 {
+	position: relative !important;
+	width: 100%;
+}
+.ratio_3-4 {
+	padding-top: 133.333% !important;
+}
+.ratio_1-1 {
+	padding-top: 100% !important;
+}
+.ratio_4-3 {
+	padding-top: 75% !important;
+}
+.ratio_16-9 {
+	padding-top: 56.25% !important;
+}
+.ratio {
+	position: absolute !important;
+	top: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
 }

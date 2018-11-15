@@ -24,5 +24,13 @@ switch (@$_GET['act']) {
 }
 
 $output = $sys->db('SELECT * FROM `movie`','all');
+
+foreach ($output as $key => $value) 
+{
+	$output[$key]['id_url']     = $sys->path['url'].'movie/'.$value['id_url'];
+	$output[$key]['id_url_alt'] = $sys->path['url'].'movie/'.$value['id_url_alt'];
+	$output[$key]['image']      = admin_img($value['image'],'movie');
+}
+
 include $sys->tpl('movie_list');
 ?>

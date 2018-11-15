@@ -25,6 +25,29 @@
 				<textarea name="sinopsis" class="form-control" rows="3" required="required"><?php echo @$output['sinopsis']; ?></textarea>
 			</div>
 			<div class="form-group">
+				<label>Active</label>
+				<div class="radio">
+					<label>
+						<input type="radio" name="active" value="1" <?php if(@$output['active']==1) echo 'checked="checked"' ?> >
+						Yes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</label>
+					<label>
+						<input type="radio" name="active" value="0" <?php if(@$output['active']==0) echo 'checked="checked"' ?> >
+						no
+					</label>
+				</div>
+			</div>
+			<?php 
+			if(@$output['image']) 
+			{
+				?>
+				<div class="form-group">
+					<img height="300px" width="auto" class="image_viewer" src="<?php echo $output['image']; ?>" >
+				</div>
+				<?php 
+			}
+			?>
+			<div class="form-group">
 				<label>Image</label>
 				<input type="file" name="image" class="form-control" value="" >
 			</div>

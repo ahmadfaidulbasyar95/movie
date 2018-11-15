@@ -12,6 +12,19 @@
 				<label>Name</label>
 				<input type="text" class="form-control" name="name" required="required" value="<?php echo @$output['name']; ?>">
 			</div>
+			<div class="form-group">
+				<label>Active</label>
+				<div class="radio">
+					<label>
+						<input type="radio" name="active" value="1" <?php if(@$output['active']==1) echo 'checked="checked"' ?> >
+						Yes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</label>
+					<label>
+						<input type="radio" name="active" value="0" <?php if(@$output['active']==0) echo 'checked="checked"' ?> >
+						no
+					</label>
+				</div>
+			</div>
 			<?php 
 			if(@$_GET['return']) 
 			{

@@ -7,6 +7,7 @@ module.exports = {
 	],
 	js: [ // mengambil semua file js yang akan dicompress menjadi file dengan nama yang ada di `.dest.path`+'js/'+`.dest.js`
 		'js/script_def.js',
+		'js/image_viewer.js',
 		'js/script_additional.js' //Uncomment if project Ended
 	],
 	source: __dirname+"/", // menentukan doc_root yang akan di compress jika dinamis isikan saja __dirname+"/"
