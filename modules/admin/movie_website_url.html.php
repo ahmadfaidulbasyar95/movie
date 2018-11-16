@@ -13,7 +13,7 @@
 				if($output['url']) 
 				{
 					?>
-					<a href="<?php echo $output['url']; ?>" target="BLANK"><?php echo $output['url']; ?></a>
+					<a href="<?php echo $output['url']; ?>" target="_blank"><?php echo $output['url']; ?></a>
 					<?php 
 				}
 				?>

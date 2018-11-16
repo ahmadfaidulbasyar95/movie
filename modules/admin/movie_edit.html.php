@@ -37,18 +37,30 @@
 					</label>
 				</div>
 			</div>
-			<?php 
-			if(@$output['image']) 
-			{
-				?>
-				<div class="form-group">
-					<img height="300px" width="auto" class="image_viewer" src="<?php echo $output['image']; ?>" >
-				</div>
-				<?php 
-			}
-			?>
 			<div class="form-group">
-				<label>Image</label>
+				<label>Status</label>
+				<div class="radio">
+					<label>
+						<input type="radio" name="status" value="1" <?php if(@$output['status']==1 || empty(@$output['status'])) echo 'checked="checked"' ?> >
+						On Going &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</label>
+					<label>
+						<input type="radio" name="status" value="2" <?php if(@$output['status']==2) echo 'checked="checked"' ?> >
+						Completed
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Image (3:4)</label>
+				<?php 
+				if(@$output['image']) 
+				{
+					?>
+					<br>
+					<img height="300px" width="auto" class="image_viewer" src="<?php echo $output['image']; ?>" >
+					<?php 
+				}
+				?>
 				<input type="file" name="image" class="form-control" value="" >
 			</div>
 			<?php 

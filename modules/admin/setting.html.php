@@ -25,6 +25,19 @@ $sys->meta_title = 'Configuration';
 				?>
 				<input type="file" class="form-control" name="logo">
 			</div>
+			<div class="form-group">
+				<label>Background</label>
+				<?php 
+				$background = get_config('background');
+				if($background) 
+				{
+					?>
+					<img src="<?php echo admin_img($background); ?>" class="img-responsive" alt="Image">
+					<?php 
+				}
+				?>
+				<input type="file" class="form-control" name="background">
+			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>

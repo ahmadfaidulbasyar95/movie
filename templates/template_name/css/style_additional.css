@@ -1,6 +1,9 @@
 .no_margin {
 	margin: 0 !important;
 }
+.margin_15_b {
+	margin-bottom: 15px;
+}
 
 .no_padding {
 	padding: 0 !important;
@@ -11,9 +14,19 @@
 .padding_10 {
 	padding: 10px;
 }
+.padding_15 {
+	padding: 15px;
+}
+.padding_20 {
+	padding: 20px;
+}
 
 .no_border {
 	border: 0 !important;
+}
+
+.no_border_radius {
+	border-radius: 0 !important;
 }
 
 
@@ -30,8 +43,18 @@ input, textarea, select, .btn, .alert, .panel-heading, .panel {
 	margin-right: auto;
 	margin-left: auto;
 }
+.box_shadow {
+	box-shadow: 0 0 10px black;
+}
 a:hover {
 	text-decoration: none !important;
+}
+.image_viewer {
+	cursor: pointer;
+}
+.bg_white_transparent ,
+.panel {
+	background-color: rgba(255, 255, 255, 0.8);
 }
 
 
@@ -61,4 +84,60 @@ a:hover {
 	top: 0 !important;
 	width: 100% !important;
 	height: 100% !important;
+}
+
+/*Page*/
+#page {
+  height: 100vh;
+  overflow: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  max-width: 1400px;
+}
+
+/*Navbar*/
+.navbar .navbar-toggle {
+	border-color: white;
+	color: white;
+}
+.navbar .navbar-nav a {
+	color: white;
+	text-shadow: 0 0 10px black;
+}
+.navbar .navbar-nav .dropdown-menu ,
+.navbar .navbar-nav .open > a ,
+.navbar .navbar-nav a:hover {
+  background-color: rgba(238, 238, 238, 0.39);
+}
+.navbar .navbar-nav .avatar {
+	border-radius: 50%;
+}
+
+/*Movie List*/
+.movie_list .item .caption {
+	background: black;
+	overflow: hidden;
+}
+.movie_list .item .caption .title {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7),transparent);
+  color: #d0d0d0;
+}
+.movie_list .item .caption .episode {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), transparent, transparent);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  min-width: 100px;
+  color: #d0d0d0;
+}
+.movie_list .item a:hover .caption .episode ,
+.movie_list .item a:hover .caption .title {
+	color: white;
+}
+.movie_list .item .caption img {
+	transition: 2s;
+}
+.movie_list .item a:hover .caption img {
+	transform: scale(1.1);
 }

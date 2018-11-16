@@ -7,7 +7,7 @@ switch (@$_GET['act']) {
 	case '1':
 		if ($id) 
 		{
-			if ($sys->db_update(array(),'website',$id,1)) 
+			if ($sys->db_update(array(),'movie_series',$id,1,'serie_id')) 
 			{
 				$msg[] = array('Delete Success','success');
 			}else
@@ -23,6 +23,7 @@ switch (@$_GET['act']) {
 		break;
 }
 
-$output = $sys->db('SELECT * FROM `website` ORDER BY `created` DESC','all');
-include $sys->tpl('website_list');
+$output = $sys->db('SELECT `serie_id` AS `id`, GROUP_CONCAT(`name`) AS `movie` FROM `movie` AS `m` RIGHT JOIN `movie_series` AS `s` ON `m`.`id`=`s`.`movie_id` GROUP BY `serie_id` ','all');
+
+include $sys->tpl('movie_series_list');
 ?>

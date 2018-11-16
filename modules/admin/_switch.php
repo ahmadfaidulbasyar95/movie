@@ -25,12 +25,21 @@ switch ($sys->mod['task']) {
 		include 'movie_website.php';
 		break;
 
+	case 'movie_series':
+		include 'movie_series.php';
+		break;
+
 	case 'website':
 		include 'website.php';
 		break;
 
 	case 'setting':
 		include 'setting_app.php';
+		break;
+
+	case 'update_eps':
+		$sys->mod_allowed_user();
+		include 'update_eps.php';
 		break;
 	
 	default:

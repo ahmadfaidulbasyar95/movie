@@ -23,12 +23,12 @@ switch (@$_GET['act']) {
 		break;
 }
 
-$output = $sys->db('SELECT * FROM `movie`','all');
+$output = $sys->db('SELECT * FROM `movie` ORDER BY `created` DESC','all');
 
 foreach ($output as $key => $value) 
 {
-	$output[$key]['id_url']     = $sys->path['url'].'movie/'.$value['id_url'];
-	$output[$key]['id_url_alt'] = $sys->path['url'].'movie/'.$value['id_url_alt'];
+	$output[$key]['id_url']     = ($value['active']) ? $sys->path['url'].'movie/'.$value['id_url'] : '#';
+	$output[$key]['id_url_alt'] = ($value['active']) ? $sys->path['url'].'movie/'.$value['id_url_alt'] : '#' ;
 	$output[$key]['image']      = admin_img($value['image'],'movie');
 }
 

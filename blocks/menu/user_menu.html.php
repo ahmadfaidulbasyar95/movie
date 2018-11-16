@@ -17,8 +17,8 @@
 				if($sys->user['image']) 
 				{
 					?>
-					<li>
-						<img src="<?php echo $sys->user['image']; ?>" class="img-responsive" alt="Image">
+					<li class="padding_20">
+						<img src="<?php echo $sys->user['image']; ?>" class="img-responsive avatar" alt="Image">
 					</li>
 					<?php 
 				}

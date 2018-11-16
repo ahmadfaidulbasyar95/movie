@@ -41,13 +41,13 @@ if(@$_GET['return'])
 								if($value['url']) 
 								{
 									?>
-									<a href="<?php echo $value['url']; ?>" target="BLANK">Open URL Movie</a>
+									<a href="<?php echo $value['url']; ?>" target="_blank"><i class="fa fa-external-link"></i></a>
 									<?php 
 								}
 								?>
 							</td>
 							<td>
-								<a href="<?php echo $sys->mod['url_task']; ?>url?id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-info">URL Movie</a>
+								<a href="<?php echo $sys->mod['url_task']; ?>url?id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']); ?>" class="btn btn-info"><i class="fa fa-link"></i> Movie</a>
 								<a href="<?php echo $sys->mod['url_task']; ?>edit?id=<?php echo urlencode($value['id']); ?>&return=<?php echo urlencode($sys->mod['url_current']).$add_url; ?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
 								<a onclick="return confirm('Delete ?')" href="<?php echo $sys->mod['url_task']; ?>?id=<?php echo urlencode($value['id']); ?>&act=1&return=<?php echo urlencode($sys->mod['url_current']).$add_url; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 							</td>

@@ -10,7 +10,7 @@ if ($_POST)
 }
 foreach ($_FILES as $key => $value) 
 {
-	$file = upload($key,$sys->path['root'].'images/',$key,'jpg,png,jpeg');
+	$file = upload($key,$sys->path['root'].'images/',$key,'jpg,png,jpeg,svg');
 	if ($file) 
 	{
 		$file_old = get_config($key);

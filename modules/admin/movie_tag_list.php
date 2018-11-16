@@ -27,7 +27,7 @@ $output = $sys->db('SELECT * FROM `movie_tag`','all');
 
 foreach ($output as $key => $value) 
 {
-	$output[$key]['id_url'] = $sys->path['url'].'tag/'.$value['id_url'];
+	$output[$key]['id_url'] = ($value['active']) ? $sys->path['url'].'tag/'.$value['id_url'] : '#' ;
 }
 
 include $sys->tpl('movie_tag_list');
