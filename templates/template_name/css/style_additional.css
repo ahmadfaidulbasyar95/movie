@@ -141,3 +141,24 @@ a:hover {
 .movie_list .item a:hover .caption img {
 	transform: scale(1.1);
 }
+
+/*Select Autocomplete*/
+.select_autocomplete_results {
+	z-index: 99999999999999;
+	width: 300px;
+	background: white;
+	border: 1px solid #cccccc;
+}
+.select_autocomplete_results .item_group {
+	max-height: 300px;
+	overflow-y: auto;
+	margin-bottom: 0 !important;
+}
+.select_autocomplete_results .item_group .item {
+	border-radius: 0 !important;
+}
+.select_autocomplete_filter {
+	width: calc(100% - 30px) !important;
+	display: block;
+	margin: 15px;
+}

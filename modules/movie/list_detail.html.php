@@ -13,7 +13,7 @@
 		<h5 class="text-muted">Name Alternate :</h5>
 		<h4><?php echo $output['name_alt']; ?></h4>
 		<h5 class="text-muted">Episodes :</h5>
-		<h4><?php echo $output['ep_last'].'/'.$output['ep_total']; ?></h4>
+		<h4><?php echo $output['ep_last'].' of '.$output['ep_total']; ?></h4>
 		<h5 class="text-muted">Status :</h5>
 		<h4 class="<?php echo ($output['status']==1) ? 'text-info' : 'text-success' ?>"><?php echo ($output['status']==1) ? 'On Going' : 'Completed' ?></h4>
 		<?php 
@@ -72,6 +72,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<?php echo $value['name']; ?>
+						[<?php echo $value['ep_last']; ?>]
 						<i class="fa fa-chevron-down pull-right"></i>
 					</h3>
 				</div>

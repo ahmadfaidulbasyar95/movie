@@ -80,7 +80,7 @@ if ($sys->mod['allowed_user'])
 		}
 	}else
 	{
-		$sys->redirect('user.login');
+		$sys->redirect('user.login?return='.urlencode($sys->mod['url_current']));
 	}
 }
 

@@ -16,7 +16,13 @@ if (@$_SESSION['user_id'] || $sys->user)
 				if (@$a['active']) 
 				{
 					$_SESSION['user_id'] = $a['id'];
-					$sys->redirect('user.profill');
+					if (@$_GET['return']) 
+					{
+						$sys->redirect($_GET['return']);
+					}else
+					{
+						$sys->redirect('user.profill');
+					}
 				}else
 				{
 					$msg = 'Account Has Been Disabled';

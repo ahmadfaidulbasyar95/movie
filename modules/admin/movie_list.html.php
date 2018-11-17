@@ -1,6 +1,28 @@
 <?php  if (!defined('_VALID_ACCESS')) exit('No direct script access allowed');
+
 ?>
 <a class="btn btn-primary" href="<?php echo $sys->mod['url_task']; ?>edit?return=<?php echo urlencode($sys->mod['url_current']); ?>">Add Movie</a>
+<form action="" method="POST" class="form-inline pull-right" role="form">
+	<div class="form-group">
+		<input type="text" name="movie_url" class="form-control" placeholder="URL Movie To Edit">
+	</div>
+	<button type="submit" class="btn btn-primary"><i class="fa fa-send"></i></button>
+</form>
+<form action="" method="GET" class="form-inline pull-right" role="form">
+	<div class="form-group">
+		<select name="page" class="form-control" onchange="this.form.submit()">
+			<option value="" disabled="disabled" selected="selected">Page</option>
+			<?php 
+			for ($i=0; $i < $output['pages']; $i++) 
+			{
+				?>
+				<option value="<?php echo $i; ?>" <?php if($output['page']==$i) echo 'selected="selected"' ?> ><?php echo $i+1; ?></option>
+				<?php 
+			}
+			?>
+		</select>
+	</div>
+</form>
 <br>
 <br>
 <div class="panel panel-primary">
@@ -13,12 +35,12 @@
 			<table class="table table-hover">
 				<tbody>
 					<?php 
-					foreach ($output as $key => $value) 
+					foreach ($output['list'] as $key => $value) 
 					{
 						?>
 						<tr>
 							<td>
-								<img height="90px" width="auto" class="image_viewer" src="<?php echo $value['image'] ?>">
+								<img height="120px" width="auto" class="image_viewer" src="<?php echo $value['image'] ?>">
 							</td>
 							<td>
 								<a href="<?php echo $value['id_url']; ?>" <?php if($value['active']) echo 'target="_blank"' ?> >

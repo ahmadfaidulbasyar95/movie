@@ -51,6 +51,8 @@ $output = $sys->db('SELECT
 		`ts`.`list_id` AS `id`, 
 		`ts`.`url` AS `url`, 
 		`m`.`id` AS `m_id`, 
+		`m`.`ep_total`,
+		`ts`.`ep_last`,
 		`w`.`id` AS `w_id`, 
 		`m`.`name` AS `m_name`, 
 		`m`.`name_alt` AS `m_name_alt`,

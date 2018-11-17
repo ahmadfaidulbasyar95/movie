@@ -35,7 +35,7 @@ if($output)
 		}
 	}
 
-	$output['website'] = $sys->db("SELECT `w`.`id`,`w`.`name`,`w`.`url`,`w`.`php_episodes`, `m`.`url` AS `url_target` FROM `movie_website` AS `m` LEFT JOIN `website` AS `w` ON `w`.`id`=`m`.`website_id` WHERE `movie_id` = '{$output['id']}'",'all');
+	$output['website'] = $sys->db("SELECT `w`.`id`,`w`.`name`,`w`.`url`,`w`.`php_episodes`, `m`.`ep_last`, `m`.`url` AS `url_target` FROM `movie_website` AS `m` LEFT JOIN `website` AS `w` ON `w`.`id`=`m`.`website_id` WHERE `movie_id` = '{$output['id']}'",'all');
 
 	foreach ($output['website'] as $key => $value) 
 	{

@@ -130,8 +130,18 @@ class system
   {
     $this->db = $_db;
   }
-  public function db($query='select "insert your query" as warning',$type='',$reset_index=0)
+  public function db($query='select "insert your query" as warning',$type='',$page=0,$show_item=0,$reset_index=0)
   {
+    if ($show_item) 
+    {
+      $show_item = intval($show_item);
+      $page      = intval($page);
+      $db_total  = $this->db("SELECT COUNT(*) FROM ({$query}) AS `total`",'one');
+      $db_limit  = ($page) ? ' LIMIT '.$page*$show_item.','.$show_item : ' LIMIT '.$show_item ;
+      $db_pages  = ceil($db_total / $show_item);
+      $query    .= $db_limit;
+    }
+
     $_config = $this->config[$this->db];
 
     $connect = new mysqli($_config['SERVER'],$_config['USERNAME'],$_config['PASSWORD'],$_config['DATABASE']);
@@ -226,7 +236,19 @@ class system
         $output = $result;
         break;
     }
-    return $output;
+
+    if ($show_item) 
+    {
+      return array(
+          'list'  => $output,
+          'total' => $db_total,
+          'page'  => $page,
+          'pages' => $db_pages
+        );
+    }else
+    {
+      return $output;
+    }
   }
   public function db_update($data=array(),$table='',$id='',$is_delete=0,$id_field='id')
   {

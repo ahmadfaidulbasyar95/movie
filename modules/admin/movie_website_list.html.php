@@ -25,6 +25,7 @@ if(@$_GET['return'])
 						<th>Movie</th>
 						<th>Website</th>
 						<th>URL Movie</th>
+						<th>Episode</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -36,6 +37,7 @@ if(@$_GET['return'])
 						<tr>
 							<td><?php echo $value['m_name']; ?> / <?php echo $value['m_name_alt']; ?></td>
 							<td><?php echo $value['w_name']; ?></td>
+							<td><?php echo $value['ep_last']; ?> of <?php echo $value['ep_total']; ?></td>
 							<td>
 								<?php 
 								if($value['url']) 

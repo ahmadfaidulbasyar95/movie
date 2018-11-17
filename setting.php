@@ -25,6 +25,16 @@ $_setting = array(
 			),
 		'header' => array(
 			array(
+				'name' => 'movie_search',
+				'show' => array(
+					// 'access' => array(),
+					// 'mod'    => array('user'),
+					),
+				'title'  => 'Search Movie',
+				'tpl'    => 'default',
+				'config' => array(),
+				),
+			array(
 				'name' => 'menu',
 				'show' => array(
 					// 'access' => array(),
@@ -89,7 +99,7 @@ $_setting = array(
 			array(
 				'name' => 'menu',
 				'show' => array(
-					'access' => array('1'),
+					// 'access' => array('1'),
 					'mod'    => array('movie','tag','user'),
 					),
 				'title'  => 'Main Menu',
