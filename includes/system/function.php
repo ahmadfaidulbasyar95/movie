@@ -18,11 +18,6 @@ function is_url($value='')
 	}
 }
 
-function is_json($string='') {
-	json_decode($string);
-	return (json_last_error() == JSON_ERROR_NONE);
-}
-
 function client_mac($ip='')
 {
 	if(empty($ip)) $ip = client_ip();
@@ -50,10 +45,10 @@ function client_ip()
 
 function config_decode($string = '')
 {
-	$out = json_decode($string, 1);
+	$out = (is_array($string)) ? $string : json_decode($string, 1);
 	foreach ((array)$out as $key => $value) 
 	{
-		$out[$key] = (is_json($value)) ? call_user_func(__FUNCTION__, $value) : urldecode($value);
+		$out[$key] = (is_array($value)) ? call_user_func(__FUNCTION__, $value) : urldecode($value);
 	}
 	if (empty($out))
 	{
@@ -61,13 +56,13 @@ function config_decode($string = '')
 	}
 	return $out;
 }
-function config_encode($array = array())
+function config_encode($array = array(),$is_process = 1)
 {
 	foreach ((array)$array as $key => $value) 
 	{
-		$array[$key] = (is_array($value)) ? call_user_func(__FUNCTION__, $value) :  urlencode($value);
+		$array[$key] = (is_array($value)) ? call_user_func(__FUNCTION__, $value, 0) :  urlencode($value);
 	}
-	return json_encode($array);
+	return ($is_process) ? json_encode($array) : $array;
 }
 
 function upload($source='',$patch='',$name='',$allow_ext='')

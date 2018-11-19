@@ -2,22 +2,25 @@
 class system
 {
 
-  public $url             = array();
-  public $mod             = array();
-  public $is_admin        = 0;
-  public $admin_access_id = 0;
-  public $user            = array();
-  public $user_access     = array();
-  public $app_home        = '';
-  public $access          = array();
-  public $template        = array();
-  public $content         = '';
-  public $blocks          = array();
-  public $meta_title      = 'Title';
-  public $meta_icon       = '';
-  public $db_log          = 0;
-  public $db_log_data     = array();
-  public $system_run      = 1;
+  public $path              = array();
+  public $mod               = array();
+  public $is_admin          = 0;
+  public $admin_access_id   = 0;
+  public $user              = array();
+  public $user_access       = array();
+  public $app_home          = '';
+  public $access            = array();
+  public $template          = array();
+  public $meta_title        = 'Title';
+  public $meta_icon         = '';
+  public $meta_add_text     = '';
+  public $db_log            = 0;
+  public $db_log_data       = array();
+  public $system_run        = 1;
+  public $blocks_profill_id = 'default';
+  public $blocks_editor     = 0;
+  public $blocks            = array();
+  public $content           = '';
 
   private $config = array();
   private $db     = 'db';
@@ -81,7 +84,11 @@ class system
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="'.$this->meta_icon.'">
     <title>'.$this->meta_title.'</title>
-    ';
+    '.$this->meta_add_text;
+  }
+  public function meta_add($text)
+  {
+    $this->meta_add_text .= $text;
   }
   public function set_icon($img='')
   {
@@ -435,12 +442,84 @@ class system
       }
     }
   }
+  public function blocks_change($blocks_profill_id='',$is_get_data=0)
+  {
+    $output = array();
+
+    if (empty($blocks_profill_id)) $blocks_profill_id = $this->blocks_profill_id;
+    if (empty($blocks_profill_id)) $blocks_profill_id = 'default';
+    $blocks_profill_id = addslashes($blocks_profill_id);
+
+    $blocks = $this->db("SELECT * FROM `block` WHERE `active`='1' AND `profill_id`='$blocks_profill_id' ORDER BY `orderby`",'all');
+    if ($blocks) 
+    {
+      $blocks_ = array();
+      foreach ($blocks as $key => $value) 
+      {
+        $position = $value['position'];
+        unset($value['position']);
+        unset($value['profill_id']);
+        unset($value['orderby']);
+        unset($value['active']);
+
+        $value['show']        = config_decode($value['show']);
+        $value['config']      = config_decode($value['config']);
+        $blocks_[$position][] = $value;
+      }
+      if ($is_get_data) 
+      {
+        $output = array(
+          'profill_id' => $blocks_profill_id,
+          'list'       => $blocks_
+          );
+      }else
+      {
+        $this->blocks_profill_id = $blocks_profill_id;
+        $this->blocks            = $blocks_;
+      }
+    }else
+    if ($this->blocks and empty($is_get_data))
+    {
+      foreach ($this->blocks as $key => $value) 
+      {
+        if (is_array($value)) 
+        {
+          $orderby = 1;
+          foreach ($value as $key1 => $value1) 
+          {
+            if (@$value1['title'] and @$value1['name'] and @$value1['tpl']) 
+            {
+              if (empty(@$value1['show'])) $value1['show']     = array();
+              if (empty(@$value1['config'])) $value1['config'] = array();
+
+              $value1['show']       = config_encode($value1['show']);
+              $value1['config']     = config_encode($value1['config']);
+              $value1['active']     = 1;
+              $value1['title_show'] = 1;
+              $value1['position']   = $key;
+              $value1['profill_id'] = $blocks_profill_id;
+              $value1['orderby']    = $orderby;
+              $orderby++;
+
+              $this->db_update($value1,'block');
+            }
+          }
+        }
+      }
+      $this->blocks_change($blocks_profill_id);
+    }
+    return $output;
+  }
   public function block_show($position='')
   {
     if ($position) 
     {
       if (array_key_exists($position, $this->blocks)) 
       {
+        if ($this->blocks_editor) 
+        {
+          echo '<div class="blocks_editor_position" data-position="'.$position.'"><h4>'.ucwords(str_replace('_', ' ', $position)).'</h4>';
+        }
         foreach ((array)$this->blocks[$position] as $block_id => $block) 
         {
           if (@$block['name']) 
@@ -450,70 +529,122 @@ class system
             $block['url']      = $this->path['url'].'blocks/'.$block['name'].'/';
             if (file_exists($block['root'].'_switch.php')) 
             {
-              $is_show = 1;
-              $is_show_access = 1;
-              if (@$block['show']['access']) 
+              if (@$block['id']) $block_id = $block['id'];
+              if ($this->blocks_editor) 
               {
-                $is_show = 0;
-                $is_show_access = 0;
-                foreach ((array)$block['show']['access'] as $key => $value) 
-                {
-                  if (array_key_exists($value, (array)$this->user_access)) 
-                  {
-                    $is_show_access = 1;
-                    $is_show = 1;
-                  }
-                }
-              }
-              $is_show_mod = 1;
-              if (@$block['show']['mod']) 
+                echo '<div class="blocks_editor_component" data-id="'.$block_id.'"><h4>'.$block['title'].'</h4></div>';
+              }else
               {
-                $is_show = 0;
-                $is_show_mod = 0;
-                foreach ((array)$block['show']['mod'] as $key => $value) 
-                {
-                  if ($value == $this->mod['name']) 
-                  {
-                    $is_show_mod = 1;
-                    $is_show = 1;
-                  }
-                }
-              }
-              if (@$block['show']['access'] and @$block['show']['mod']) 
-              {
-                if ($is_show_access and $is_show_mod) 
-                {
-                  $is_show = 1;
-                }else
+                $is_show = 1;
+                $is_show_access = 1;
+                if (@$block['show']['access']) 
                 {
                   $is_show = 0;
+                  $is_show_access = 0;
+                  foreach ((array)$block['show']['access'] as $key => $value) 
+                  {
+                    if (array_key_exists($value, (array)$this->user_access)) 
+                    {
+                      $is_show_access = 1;
+                      $is_show = 1;
+                    }
+                  }
                 }
-              }
-              if ($is_show) 
-              {
-                global $sys;
-                unset($block['show']);
-                include $block['root'].'_switch.php';
+                $is_show_mod = 1;
+                if (@$block['show']['mod']) 
+                {
+                  $is_show = 0;
+                  $is_show_mod = 0;
+                  foreach ((array)$block['show']['mod'] as $key => $value) 
+                  {
+                    if (strpos($value, '.')) 
+                    {
+                      $value = explode('.', $value);
+                      if ($value['0'] == $this->mod['name'] and $value['1'] == $this->mod['task']) 
+                      {
+                        $is_show_mod = 1;
+                        $is_show = 1;
+                      }
+                    }else
+                    {
+                      if ($value == $this->mod['name']) 
+                      {
+                        $is_show_mod = 1;
+                        $is_show = 1;
+                      }
+                    }
+                  }
+                }
+                if (@$block['show']['access'] and @$block['show']['mod']) 
+                {
+                  if ($is_show_access and $is_show_mod) 
+                  {
+                    $is_show = 1;
+                  }else
+                  {
+                    $is_show = 0;
+                  }
+                }
+                if ($is_show) 
+                {
+                  global $sys;
+                  unset($block['show']);
+                  include $block['root'].'_switch.php';
+                }
               }
             }
           }
+        }
+        if ($this->blocks_editor) 
+        {
+          echo '</div>';
         }
       }
     }
   }
   /*Js And CSS*/
-  public function link_css($url='')
+  public function link_css($url='',$is_meta=0)
   {
     if ($url) 
     {
-      echo '<link href="'.$url.'" rel="stylesheet" type="text/css">';
+      if (!is_url($url)) 
+      {
+        $patch = @debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,1)['0']['file'];
+        $patch = str_replace('\\', '/', $patch);
+        $patch = explode('/', $patch);
+        $patch = str_replace(end($patch), '', implode('/', $patch));
+        $patch = str_replace($this->path['root'], $this->path['url'], $patch);
+        $url   = $patch.$url;
+      }
+      if ($is_meta) 
+      {
+        $sys->meta_add('<link href="'.$url.'" rel="stylesheet" type="text/css">');
+      }else
+      {
+        echo '<link href="'.$url.'" rel="stylesheet" type="text/css">';
+      }
     }
   }
-  public function link_js($url='')
+  public function link_js($url='',$is_meta=0)
   {
     if ($url) 
     {
-      echo '<script type="text/javascript" src="'.$url.'"></script>';
+      if (!is_url($url)) 
+      {
+        $patch = @debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,1)['0']['file'];
+        $patch = str_replace('\\', '/', $patch);
+        $patch = explode('/', $patch);
+        $patch = str_replace(end($patch), '', implode('/', $patch));
+        $patch = str_replace($this->path['root'], $this->path['url'], $patch);
+        $url   = $patch.$url;
+      }
+      if ($is_meta) 
+      {
+        $this->meta_add('<script type="text/javascript" src="'.$url.'"></script>');
+      }else
+      {
+        echo '<script type="text/javascript" src="'.$url.'"></script>';
+      }
     }
   }
 

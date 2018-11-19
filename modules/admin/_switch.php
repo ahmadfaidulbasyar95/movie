@@ -33,13 +33,17 @@ switch ($sys->mod['task']) {
 		include 'website.php';
 		break;
 
+	case 'update_eps':
+		$sys->mod_allowed_user();
+		include 'update_eps.php';
+		break;
+
 	case 'setting':
 		include 'setting_app.php';
 		break;
 
-	case 'update_eps':
-		$sys->mod_allowed_user();
-		include 'update_eps.php';
+	case 'setting_block':
+		include 'setting_block.php';
 		break;
 	
 	default:

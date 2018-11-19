@@ -3,19 +3,20 @@ $_setting = array(
 	'access' => array(
 		'1' => 'Administrator',
 		),
-	'meta_icon'        => 'logo.jpg',
-	'app_home'         => 'movie.main',
-	'template_default' => 'template_name',
-	'admin_access_id'  => '1',
-	'blocks'           => array(
+	'meta_icon'         => 'logo.jpg',
+	'app_home'          => 'movie.main',
+	'template_default'  => 'template_name',
+	'admin_access_id'   => '1',
+	'blocks_profill_id' => 'default',
+	'blocks'            => array(
 		'intro' => array(
 			array(
-				'name' => 'logo',
+				'name' => 'image',
 				'show' => array(
 					// 'access' => array(),
 					// 'mod'    => array('user'),
 					),
-				'title'  => 'User Menu',
+				'title'  => 'Logo',
 				'tpl'    => 'header_logo',
 				'config' => array(
 					'image' => '',
@@ -93,6 +94,11 @@ $_setting = array(
 						'name' => 'Setting',
 						'icon' => 'fa-cogs',
 						'link' => 'admin.setting',
+						),
+					array(
+						'name' => 'Setting Block',
+						'icon' => 'fa-cog',
+						'link' => 'admin.setting_block',
 						),
 					),
 				),

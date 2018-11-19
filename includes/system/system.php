@@ -21,16 +21,18 @@ if (file_exists($sys->path['root'].'setting.php'))
 	die('Invalid Setting');
 }
 
-$sys->set_template_default($_setting['template_default']);
+$sys->set_template_default(@$_setting['template_default']);
 $sys->set_template();
 $sys->set_icon(@$_setting['meta_icon']);
 
-$sys->access          = $_setting['access'];
-$sys->app_home        = $_setting['app_home'];
-$sys->blocks          = $_setting['blocks'];
-$sys->admin_access_id = $_setting['admin_access_id'];
+$sys->access            = (array)$_setting['access'];
+$sys->app_home          = @$_setting['app_home'];
+$sys->admin_access_id   = @$_setting['admin_access_id'];
+$sys->blocks_profill_id = @$_setting['blocks_profill_id'];
+$sys->blocks            = (array)$_setting['blocks'];
 
 $sys->mod_change();
+$sys->blocks_change();
 $sys->func('user');
 $sys->func();
 
@@ -82,6 +84,11 @@ if ($sys->mod['allowed_user'])
 	{
 		$sys->redirect('user.login?return='.urlencode($sys->mod['url_current']));
 	}
+}
+
+if ($sys->blocks_editor) 
+{
+	$sys->content = '<div class="blocks_editor_component"><h3>Content</h3></div>';
 }
 
 if ($sys->system_run) 
