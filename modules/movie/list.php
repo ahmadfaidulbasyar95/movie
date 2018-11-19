@@ -14,13 +14,13 @@ if (@$tag['id'])
 	$add_where .= ' AND `tag_id`="'.addslashes($tag['id']).'"';
 }
 
-$output = $sys->db("SELECT * FROM `movie` AS `m` $add_from WHERE `active` = 1 AND $add_where ORDER BY `updated` DESC",'all');
+$output = $sys->db("SELECT * FROM `movie` AS `m` $add_from WHERE `active` = 1 AND $add_where ORDER BY `updated` DESC",'all',@$_GET['page'],12);
 
-foreach ($output as $key => $value) 
+foreach ($output['list'] as $key => $value) 
 {
-	$output[$key]['id_url']     = $sys->path['url'].'movie/'.$value['id_url'];
-	$output[$key]['id_url_alt'] = $sys->path['url'].'movie/'.$value['id_url_alt'];
-	$output[$key]['image']      = admin_img($value['image'],'movie');
+	$output['list'][$key]['id_url']     = $sys->path['url'].'movie/'.$value['id_url'];
+	$output['list'][$key]['id_url_alt'] = $sys->path['url'].'movie/'.$value['id_url_alt'];
+	$output['list'][$key]['image']      = admin_img($value['image'],'movie');
 }
 
 include $sys->tpl('list');

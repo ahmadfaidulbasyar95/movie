@@ -1,7 +1,15 @@
 <?php  if (!defined('_VALID_ACCESS')) exit('No direct script access allowed');
 ?>
-<a class="btn btn-primary" href="<?php echo $sys->mod['url_task']; ?>edit?return=<?php echo urlencode($sys->mod['url_current']); ?>">New Series</a>
-<br>
+<div class="text-center">
+	<a class="btn btn-primary pull-left" href="<?php echo $sys->mod['url_task']; ?>edit?return=<?php echo urlencode($sys->mod['url_current']); ?>">New Series</a>
+	<form action="" method="POST" class="form-inline pull-right" role="form">
+		<div class="form-group">
+			<input type="text" name="movie_url" class="form-control" placeholder="URL Movie To Edit Series">
+		</div>
+		<button type="submit" class="btn btn-primary"><i class="fa fa-send"></i></button>
+	</form>
+	<?php echo pagination($output['page'],$output['pages']); ?>
+</div>
 <br>
 <div class="panel panel-primary">
 	<div class="panel-heading">
@@ -19,7 +27,7 @@
 				</thead>
 				<tbody>
 					<?php 
-					foreach ($output as $key => $value) 
+					foreach ($output['list'] as $key => $value) 
 					{
 						?>
 						<tr>
@@ -36,4 +44,7 @@
 			</table>
 		</div>
 	</div>
+</div>
+<div class="text-center">
+	<?php echo pagination($output['page'],$output['pages']); ?>
 </div>

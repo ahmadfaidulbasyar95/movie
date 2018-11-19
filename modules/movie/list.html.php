@@ -1,9 +1,12 @@
 <?php  if (!defined('_VALID_ACCESS')) exit('No direct script access allowed');
 
 ?>
+<div class="col-xs-12 text-center">
+	<?php echo pagination($output['page'],$output['pages']); ?>
+</div>
 <div class="col-xs-12 no_padding movie_list">
 	<?php 
-	foreach ($output as $key => $value) 
+	foreach ($output['list'] as $key => $value) 
 	{
 		?>
 		<div class="col-xs-6 col-sm-4 col-md-3 padding_5 item">
@@ -22,4 +25,7 @@
 		<?php 
 	}
 	?>
+</div>
+<div class="col-xs-12 text-center">
+	<?php echo pagination($output['page'],$output['pages']); ?>
 </div>

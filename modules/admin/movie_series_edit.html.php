@@ -10,12 +10,13 @@
 		<form action="" method="POST" role="form" enctype="multipart/form-data">
 			<div class="form-group">
 				<label>Movie</label>
-				<select name="movie_id" class="form-control" required="required">
+				<select name="movie_id" class="form-control select_autocomplete" required="required" placeholder="Search Movie">
+					<option value="">Search Movie</option>
 					<?php 
 					foreach ($output['movies'] as $key => $value) 
 					{
 						?>
-						<option value="<?php echo $key; ?>" <?php if($key == @$output['movie_id']) echo 'selected="selected"' ?> ><?php echo $value['name']; ?></option>
+						<option value="<?php echo $key; ?>" ><?php echo $value['name']; ?></option>
 						<?php 
 					}
 					?>

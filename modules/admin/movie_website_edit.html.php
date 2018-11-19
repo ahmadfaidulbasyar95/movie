@@ -20,7 +20,8 @@
 				}else
 				{
 					?>
-					<select name="movie_id" class="form-control" required="required">
+					<select name="movie_id" class="form-control select_autocomplete" required="required" placeholder="Search Movie">
+						<option value="">Search Movie</option>
 						<?php 
 						foreach ($output['movies'] as $key => $value) 
 						{

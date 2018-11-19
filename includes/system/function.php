@@ -110,6 +110,58 @@ function upload($source='',$patch='',$name='',$allow_ext='')
   }
 }
 
+function pagination($page=0,$pages=0,$input_name='page',$form_method='GET',$add_html='')
+{
+	$page   = intval($page);
+	$pagess = intval($pages);
+	if ($pages) 
+	{
+		$opt = '';
+		for ($i=0; $i < $pages; $i++) 
+		{
+			$opt_s = ($page == $i) ? 'selected="selected"' : '';
+			$ii    = $i + 1;
+			$opt  .= '<option value="'.$i.'" '.$opt_s.' >'.$ii.'</option>';
+		}
+
+		$first = ($page >= 1) ? '
+				<div class="form-group">
+					<button type="submit" onclick="this.form.page.value=\'0\'" class="btn btn-default"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></button>
+				</div>' : '';
+
+		$prev_val = $page - 1;
+		$prev     = ($page >= 1) ? '
+				<div class="form-group">
+					<button type="submit" onclick="this.form.page.value=\''.$prev_val.'\'" class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
+				</div>' : '';
+		
+		$next_val = $page + 1;
+		$next     = ($page < $pages - 1) ? '
+				<div class="form-group">
+					<button type="submit" onclick="this.form.page.value=\''.$next_val.'\'" class="btn btn-default"><i class="fa fa-chevron-right"></i></button>
+				</div>' : '';
+
+		$last_val = $pages - 1;
+		$last     = ($page < $pages - 1) ? '
+				<div class="form-group">
+					<button type="submit" onclick="this.form.page.value=\''.$last_val.'\'" class="btn btn-default"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
+				</div>' : '';
+
+		return '
+			<form action="" method="'.$form_method.'" class="form-inline form_pagination" role="form">
+				'.$first.$prev.'
+				<div class="form-group">
+					<select name="'.$input_name.'" class="form-control" onchange="this.form.submit()">
+						<option value="" disabled="disabled" selected="selected">Page</option>
+						'.$opt.'
+					</select>
+				</div>
+				'.$add_html.$next.$last.'
+			</form>
+		';
+	}
+}
+
 function msg($msg='',$type='warning')
 {
 	$out = '';
