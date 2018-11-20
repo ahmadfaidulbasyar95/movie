@@ -459,7 +459,6 @@ class system
         $position = $value['position'];
         unset($value['position']);
         unset($value['profill_id']);
-        unset($value['orderby']);
         unset($value['active']);
 
         $value['show']        = config_decode($value['show']);
@@ -514,12 +513,12 @@ class system
   {
     if ($position) 
     {
+      if ($this->blocks_editor) 
+      {
+        echo '<div class="blocks_editor_position" data-position="'.$position.'"><h4 class="blocks_editor_action">'.ucwords(str_replace('_', ' ', $position)).'</h4>';
+      }
       if (array_key_exists($position, $this->blocks)) 
       {
-        if ($this->blocks_editor) 
-        {
-          echo '<div class="blocks_editor_position" data-position="'.$position.'"><h4>'.ucwords(str_replace('_', ' ', $position)).'</h4>';
-        }
         foreach ((array)$this->blocks[$position] as $block_id => $block) 
         {
           if (@$block['name']) 
@@ -530,11 +529,15 @@ class system
             if (file_exists($block['root'].'_switch.php')) 
             {
               if (@$block['id']) $block_id = $block['id'];
-              if ($this->blocks_editor) 
+              if ($this->blocks_editor and $block['name'] != 'layout') 
               {
-                echo '<div class="blocks_editor_component" data-id="'.$block_id.'"><h4>'.$block['title'].'</h4></div>';
+                echo '<div class="blocks_editor_component" data-id="'.$block_id.'" data-orderby="'.$block['orderby'].'"><h4 class="blocks_editor_action">'.$block['title'].'</h4></div>';
               }else
               {
+                if ($this->blocks_editor and $block['name'] == 'layout') 
+                {
+                  echo '<div class="blocks_editor_component_position" data-id="'.$block_id.'" data-orderby="'.$block['orderby'].'"><h4 class="blocks_editor_action">'.ucwords(str_replace('_', ' ', $block['title'])).'</h4>';
+                }
                 $is_show = 1;
                 $is_show_access = 1;
                 if (@$block['show']['access']) 
@@ -591,14 +594,18 @@ class system
                   unset($block['show']);
                   include $block['root'].'_switch.php';
                 }
+                if ($this->blocks_editor and $block['name'] == 'layout') 
+                {
+                  echo '</div>';
+                }
               }
             }
           }
         }
-        if ($this->blocks_editor) 
-        {
-          echo '</div>';
-        }
+      }
+      if ($this->blocks_editor) 
+      {
+        echo '</div>';
       }
     }
   }
@@ -618,7 +625,7 @@ class system
       }
       if ($is_meta) 
       {
-        $sys->meta_add('<link href="'.$url.'" rel="stylesheet" type="text/css">');
+        $this->meta_add('<link href="'.$url.'" rel="stylesheet" type="text/css">');
       }else
       {
         echo '<link href="'.$url.'" rel="stylesheet" type="text/css">';

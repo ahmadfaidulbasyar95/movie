@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 17, 2018 at 12:28 AM
+-- Generation Time: Nov 20, 2018 at 10:28 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.0.22-0ubuntu0.17.04.1
 
@@ -19,6 +19,42 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_my_movie`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `block`
+--
+
+CREATE TABLE `block` (
+  `id` varchar(255) NOT NULL,
+  `profill_id` varchar(255) NOT NULL,
+  `position` text NOT NULL,
+  `orderby` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `name` text NOT NULL,
+  `show` text NOT NULL,
+  `tpl` text NOT NULL,
+  `config` text NOT NULL,
+  `title_show` tinyint(1) NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `block`
+--
+
+INSERT INTO `block` (`id`, `profill_id`, `position`, `orderby`, `title`, `name`, `show`, `tpl`, `config`, `title_show`, `created`, `updated`, `active`) VALUES
+('MjgzXzE1NDI2OTYzODQuODVfMjE0Xzo6MQ==', 'default', 'header_intro', 1, 'Logo', 'image', '[]', 'header_logo', '{\"image\":\"\",\"url\":\"\"}', 1, '2018-11-20 13:46:24', '2018-11-20 13:46:24', 1),
+('MzE0XzE1NDI2OTYzODQuODVfNjg3Xzo6MQ==', 'default', 'web_view', 5, 'content', 'layout', '[]', 'container', '[]', 1, '2018-11-20 13:46:24', '2018-11-20 21:51:58', 1),
+('NTc1XzE1NDI2OTYzODQuODVfNzhfOjox', 'default', 'content', 2, 'Content', 'mod_trim', '[]', 'default', '[]', 1, '2018-11-20 13:46:24', '2018-11-20 22:01:40', 1),
+('NTI3XzE1NDI2OTYzODQuODVfNzEzXzo6MQ==', 'default', 'header_menu', 3, 'Administrator', 'menu', '{\"access\":[\"1\"],\"mod\":[\"admin\"]}', 'header_menu', '[{\"name\":\"Movie\",\"icon\":\"fa-film\",\"link\":\"admin.movie\"},{\"name\":\"Series\",\"icon\":\"fa-clone\",\"link\":\"admin.movie_series\"},{\"name\":\"Movie+Tag\",\"icon\":\"fa-tags\",\"link\":\"admin.movie_tag\"},{\"name\":\"Website\",\"icon\":\"fa-chrome\",\"link\":\"admin.website\"},{\"name\":\"Setting\",\"icon\":\"fa-cogs\",\"link\":\"admin.setting\"},{\"name\":\"Setting+Block\",\"icon\":\"fa-cog\",\"link\":\"admin.setting_block\"}]', 1, '2018-11-20 13:46:25', '2018-11-20 13:46:25', 1),
+('ODBfMTU0MjY5NjM4NC44NV8yMTZfOjox', 'default', 'header_menu', 2, 'User Menu', 'menu', '[]', 'user_menu', '[{\"name\":\"Profill\",\"icon\":\"fa-user\",\"link\":\"user.profill\"},{\"name\":\"Change+Password\",\"icon\":\"fa-key\",\"link\":\"user.change_password\"},{\"name\":\"Logout\",\"icon\":\"fa-power-off\",\"link\":\"user.logout\"}]', 1, '2018-11-20 13:46:25', '2018-11-20 19:47:39', 1),
+('OTA5XzE1NDI2OTYzODQuODVfOTI5Xzo6MQ==', 'default', 'header_menu', 4, 'Main Menu', 'menu', '{\"mod\":[\"movie\",\"tag\",\"user\"]}', 'header_menu', '[{\"name\":\"Movies\",\"icon\":\"fa-film\",\"link\":\"movie.main\"},{\"name\":\"Movie+Tags\",\"icon\":\"fa-tags\",\"link\":\"tag.main\"}]', 1, '2018-11-20 13:46:25', '2018-11-20 13:46:25', 1),
+('OTI4XzE1NDI2OTYzODQuODVfNTQwXzo6MQ==', 'default', 'web_view', 2, 'header', 'layout', '[]', 'navbar', '[]', 1, '2018-11-20 13:46:24', '2018-11-20 19:46:32', 1),
+('OTQxXzE1NDI2OTYzODQuODVfNTIxXzo6MQ==', 'default', 'header_menu', 1, 'Search Movie', 'movie_search', '[]', 'default', '[]', 1, '2018-11-20 13:46:25', '2018-11-20 21:49:09', 1);
 
 -- --------------------------------------------------------
 
@@ -47,10 +83,10 @@ CREATE TABLE `movie` (
 --
 
 INSERT INTO `movie` (`id`, `name`, `name_alt`, `id_url`, `id_url_alt`, `image`, `ep_last`, `ep_total`, `sinopsis`, `status`, `created`, `updated`, `active`) VALUES
-('MjA0XzE1NDIyOTY0MDYuMDM0XzUyM186OjE=', 'One Piece', 'One Piece', 'one+piece', 'one+piece', 'MjA0XzE1NDIyOTY0MDYuMDM0XzUyM186OjE=.jpg', '', '?', 'l', 1, '2018-11-15 22:40:06', '2018-11-16 00:15:44', 1),
+('MjA0XzE1NDIyOTY0MDYuMDM0XzUyM186OjE=', 'One Piece', 'One Piece', 'one+piece', 'one+piece', 'MjA0XzE1NDIyOTY0MDYuMDM0XzUyM186OjE=.jpg', '858', '?', 'l', 1, '2018-11-15 22:40:06', '2018-11-17 14:18:44', 1),
 ('MjUwXzE1NDIzNDk3MDYuOTg4Xzg1OV86OjE=', 'Tales Of Demons And Gods', 'Tales Of Demons And Gods', 'tales+of+demons+and+gods', 'tales+of+demons+and+gods', 'MjUwXzE1NDIzNDk3MDYuOTg4Xzg1OV86OjE=.png', '', '40', 'a', 2, '2018-11-16 13:28:27', '2018-11-16 21:40:06', 1),
-('NjYzXzE1NDIzMDMzMzkuMDE5XzQ4MF86OjE=', 'Tales Of Demons And Gods S3', 'Tales Of Demons And Gods S3', 'tales+of+demons+and+gods+s3', 'tales+of+demons+and+gods+s3', 'NjYzXzE1NDIzMDMzMzkuMDE5XzQ4MF86OjE=.png', '', '40', 'jnjkn', 1, '2018-11-16 00:35:39', '2018-11-16 12:40:17', 1),
-('NzE4XzE1NDE3NzA5MTQuMDUyXzk2Ml86OjE=', 'Boruto Naruto Next Generation', 'Boruto Naruto Next Generation', 'boruto+naruto+next+generation', 'boruto+naruto+next+generation', 'NzE4XzE1NDE3NzA5MTQuMDUyXzk2Ml86OjE=.png', '', '?', 'Japan movie', 1, '2018-11-09 20:41:54', '2018-11-16 00:33:20', 1),
+('NjYzXzE1NDIzMDMzMzkuMDE5XzQ4MF86OjE=', 'Tales Of Demons And Gods S3', 'Tales Of Demons And Gods S3', 'tales+of+demons+and+gods+s3', 'tales+of+demons+and+gods+s3', 'NjYzXzE1NDIzMDMzMzkuMDE5XzQ4MF86OjE=.png', '15', '40', 'jnjkn', 1, '2018-11-16 00:35:39', '2018-11-17 14:18:44', 1),
+('NzE4XzE1NDE3NzA5MTQuMDUyXzk2Ml86OjE=', 'Boruto Naruto Next Generation', 'Boruto Naruto Next Generation', 'boruto+naruto+next+generation', 'boruto+naruto+next+generation', 'NzE4XzE1NDE3NzA5MTQuMDUyXzk2Ml86OjE=.png', '81', '?', 'Japan movie', 1, '2018-11-09 20:41:54', '2018-11-17 14:18:44', 1),
 ('OTQyXzE1NDIzNDk2NDIuODc1XzY5M186OjE=', 'Tales Of Demons And Gods S2', 'Tales Of Demons And Gods S2', 'tales+of+demons+and+gods+s2', 'tales+of+demons+and+gods+s2', 'OTQyXzE1NDIzNDk2NDIuODc1XzY5M186OjE=.png', '', '40', 'a', 2, '2018-11-16 13:27:22', '2018-11-16 13:27:48', 1);
 
 -- --------------------------------------------------------
@@ -142,19 +178,20 @@ CREATE TABLE `movie_website` (
   `list_id` varchar(255) NOT NULL,
   `movie_id` varchar(255) NOT NULL,
   `website_id` varchar(255) NOT NULL,
-  `url` text NOT NULL
+  `url` text NOT NULL,
+  `ep_last` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `movie_website`
 --
 
-INSERT INTO `movie_website` (`list_id`, `movie_id`, `website_id`, `url`) VALUES
-('MzdfMTU0MTc3MTAwMi4zNjNfMTcwXzo6MQ==', 'NzE4XzE1NDE3NzA5MTQuMDUyXzk2Ml86OjE=', 'NDA2XzE1NDE2MDA5ODguNDQ4XzkyMl86OjE=', 'https://nanime.in/anime/boruto-naruto-next-generations'),
-('NDc1XzE1NDIzNDYxODUuMTg3Xzc0OV86OjE=', 'MjA0XzE1NDIyOTY0MDYuMDM0XzUyM186OjE=', 'NDA2XzE1NDE2MDA5ODguNDQ4XzkyMl86OjE=', 'https://nanime.in/anime/one-piece'),
-('NDIyXzE1NDE3NzQ5NDkuNThfMTgzXzo6MQ==', 'NzE4XzE1NDE3NzA5MTQuMDUyXzk2Ml86OjE=', 'NDAxXzE1NDE2ODYzODIuMDE3XzczMF86OjE=', ''),
-('NzEwXzE1NDIzNDYyMTcuMjg2XzkzOV86OjE=', 'NjYzXzE1NDIzMDMzMzkuMDE5XzQ4MF86OjE=', 'NDA2XzE1NDE2MDA5ODguNDQ4XzkyMl86OjE=', 'https://nanime.in/anime/tales-of-demons-and-gods-s3'),
-('ODEzXzE1NDIzODczMDkuMTc4XzEwMF86OjE=', 'NjYzXzE1NDIzMDMzMzkuMDE5XzQ4MF86OjE=', 'NDAxXzE1NDE2ODYzODIuMDE3XzczMF86OjE=', '');
+INSERT INTO `movie_website` (`list_id`, `movie_id`, `website_id`, `url`, `ep_last`) VALUES
+('MzdfMTU0MTc3MTAwMi4zNjNfMTcwXzo6MQ==', 'NzE4XzE1NDE3NzA5MTQuMDUyXzk2Ml86OjE=', 'NDA2XzE1NDE2MDA5ODguNDQ4XzkyMl86OjE=', 'https://nanime.in/anime/boruto-naruto-next-generations', '81'),
+('NDc1XzE1NDIzNDYxODUuMTg3Xzc0OV86OjE=', 'MjA0XzE1NDIyOTY0MDYuMDM0XzUyM186OjE=', 'NDA2XzE1NDE2MDA5ODguNDQ4XzkyMl86OjE=', 'https://nanime.in/anime/one-piece', '858'),
+('NDIyXzE1NDE3NzQ5NDkuNThfMTgzXzo6MQ==', 'NzE4XzE1NDE3NzA5MTQuMDUyXzk2Ml86OjE=', 'NDAxXzE1NDE2ODYzODIuMDE3XzczMF86OjE=', '', '1'),
+('NzEwXzE1NDIzNDYyMTcuMjg2XzkzOV86OjE=', 'NjYzXzE1NDIzMDMzMzkuMDE5XzQ4MF86OjE=', 'NDA2XzE1NDE2MDA5ODguNDQ4XzkyMl86OjE=', 'https://nanime.in/anime/tales-of-demons-and-gods-s3', '15'),
+('ODEzXzE1NDIzODczMDkuMTc4XzEwMF86OjE=', 'NjYzXzE1NDIzMDMzMzkuMDE5XzQ4MF86OjE=', 'NDAxXzE1NDE2ODYzODIuMDE3XzczMF86OjE=', '', '1');
 
 -- --------------------------------------------------------
 
@@ -232,6 +269,12 @@ INSERT INTO `website` (`id`, `name`, `url`, `php_movies`, `php_episodes`, `creat
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `block`
+--
+ALTER TABLE `block`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `movie`

@@ -88,7 +88,7 @@ if ($sys->mod['allowed_user'])
 
 if ($sys->blocks_editor) 
 {
-	$sys->content = '<div class="blocks_editor_component"><h3>Content</h3></div>';
+	$sys->content = '<div class="blocks_editor_mod_trim"><h3>Content</h3></div>';
 }
 
 if ($sys->system_run) 

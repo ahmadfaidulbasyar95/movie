@@ -1,0 +1,22 @@
+.blocks_editor_component_position ,
+.blocks_editor_component ,
+.blocks_editor_position {
+	border: 1px solid rgb(115, 119, 249);
+	padding: 2px;
+	margin: 5px;
+}
+.blocks_editor_position {
+	background: rgb(159, 215, 255);
+}
+.blocks_editor_component_position ,
+.blocks_editor_component {
+	background: rgb(168, 224, 226);
+}
+.blocks_editor_action {
+	cursor: pointer;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.blocks_editor_action:hover {
+	text-shadow: 0 0 5px white;
+}

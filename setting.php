@@ -9,7 +9,41 @@ $_setting = array(
 	'admin_access_id'   => '1',
 	'blocks_profill_id' => 'default',
 	'blocks'            => array(
-		'intro' => array(
+		'web_view' => array(
+			array(
+				'name' => 'layout',
+				'show' => array(
+					// 'access' => array(),
+					// 'mod'    => array('user'),
+					),
+				'title'  => 'header',
+				'tpl'    => 'navbar',
+				'config' => array(),
+				),
+			array(
+				'name' => 'layout',
+				'show' => array(
+					// 'access' => array(),
+					// 'mod'    => array('user'),
+					),
+				'title'  => 'content',
+				'tpl'    => 'container',
+				'config' => array(),
+				),
+			),
+		'content' => array(
+			array(
+				'name' => 'mod_trim',
+				'show' => array(
+					// 'access' => array(),
+					// 'mod'    => array('user'),
+					),
+				'title'  => 'Content',
+				'tpl'    => 'default',
+				'config' => array(),
+				),
+			),
+		'header_intro' => array(
 			array(
 				'name' => 'image',
 				'show' => array(
@@ -24,7 +58,7 @@ $_setting = array(
 					),
 				),
 			),
-		'header' => array(
+		'header_menu' => array(
 			array(
 				'name' => 'movie_search',
 				'show' => array(
