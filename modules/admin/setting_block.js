@@ -31,7 +31,7 @@
 													'</table>'+
 												'</div>'+
 											'</div>'+
-											'<input type="hidden" name="act" value="update_orderby">'+
+											'<input type="hidden" name="act" value="updates_orderby">'+
 											'<button type="submit" class="btn btn-primary">Submit</button>'+
 										'</form>'+
 									'</div>'+
@@ -118,7 +118,8 @@
 									'</li>'+
 								'</ul>'+
 								'<div class="tab-content">'+
-									'<div role="tabpanel" class="tab-pane active" id="tab_blocks_editor_component_edit">...</div>'+
+									'<div role="tabpanel" class="tab-pane active" id="tab_blocks_editor_component_edit">'+
+									'</div>'+
 									'<div role="tabpanel" class="tab-pane" id="tab_blocks_editor_component_position">'+
 										'<form action="" method="POST" role="form">'+
 											'<br>'+
@@ -184,6 +185,17 @@
   		});
 
   		$('#tab_blocks_editor_component_position select').html(positions_form);
+
+  		$.ajax({
+  			url: window.location.href,
+  			type: 'POST',
+  			dataType: 'html',
+  			data: {id: element.id , act:'edit_form'},
+  		})
+  		.done(function(out) {
+  			$('#tab_blocks_editor_component_edit').html(out);
+  		});
+  		
 
   	});
 

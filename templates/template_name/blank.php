@@ -7,9 +7,7 @@
 		<?php $sys->link_css($sys->template['url'].'css/style_custom.css'); ?>
 	</head>
 	<body>
-		<div class="container">
-			<?php echo $sys->content; ?>
-		</div>
+		<?php echo $sys->content; ?>
 		<?php $sys->link_js($sys->template['url'].'js/script_custom.js'); ?>
 	</body>
 </html>
