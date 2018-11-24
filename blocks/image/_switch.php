@@ -8,7 +8,13 @@ if ($img)
 	{
 		$img = str_replace($sys->path['root'], $sys->path['url'], $img);
 		$output['image'] = $img;
-		$output['url'] = (is_url(@$block['config']['url'])) ? $block['config']['url'] : $sys->path['url'].$block['config']['url'];
+		if (@$block['config']['url']) 
+		{
+			$output['url'] = (is_url($block['config']['url'])) ? $block['config']['url'] : $sys->path['url'].$block['config']['url'];
+		}else
+		{
+			$output['url'] = $sys->path['url'];
+		}
 		include $sys->tpl($block['tpl']);
 	}
 }

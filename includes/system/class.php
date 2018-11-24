@@ -591,7 +591,10 @@ class system
                 if ($is_show) 
                 {
                   global $sys;
-                  unset($block['show']);
+                  if (empty($this->blocks_editor) and empty($block['title_show'])) 
+                  {
+                    $block['title'] = '';
+                  }
                   include $block['root'].'_switch.php';
                 }
                 if ($this->blocks_editor and $block['name'] == 'layout') 

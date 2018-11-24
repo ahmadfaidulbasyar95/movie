@@ -72,6 +72,17 @@
 			components_form += '<tr><td> </td><td> </td></tr>';
 
   		$('#tab_blocks_editor_position_sort .components').html(components_form);
+
+  		$.ajax({
+  			url: window.location.href,
+  			type: 'POST',
+  			dataType: 'html',
+  			data: {act: 'block_list', position: element.position},
+  		})
+  		.done(function(out) {
+  			$('#tab_blocks_editor_position_add').html(out);
+  		});
+
   	});
 
   	$('body').on('submit', '#tab_blocks_editor_position_sort form', function(event) {
@@ -190,13 +201,35 @@
   			url: window.location.href,
   			type: 'POST',
   			dataType: 'html',
-  			data: {id: element.id , act:'edit_form'},
+  			data: {id: element.id , act:'edit_form', child_position: el.parent('.blocks_editor_component_position').find('.blocks_editor_component').length},
   		})
   		.done(function(out) {
   			$('#tab_blocks_editor_component_edit').html(out);
   		});
-  		
 
+  	});
+
+  	$('body').on('submit', '#tab_blocks_editor_component_edit form', function(event) {
+  		event.preventDefault();
+  		var el = $(this);
+  		var component = $('.blocks_editor_component[data-id="'+el.find('[name="id"]').val()+'"],.blocks_editor_component_position[data-id="'+el.find('[name="id"]').val()+'"]');
+  		
+  		$.ajax({
+  			url: window.location.href,
+  			type: 'POST',
+  			dataType: 'html',
+  			data: el.serialize(),
+  		})
+  		.done(function() {
+	  		$('#modal-blocks_editor_component').modal('hide');
+  			if (component.hasClass('blocks_editor_component_position')) 
+  			{
+  				window.location.href = window.location.href;
+  			}else {
+	  			component.children('.blocks_editor_action').html(el.find('[name="title"]').val());
+  			}
+  		});
+  		
   	});
 
   	$('body').on('submit', '#tab_blocks_editor_component_position form', function(event) {

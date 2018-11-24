@@ -3,11 +3,7 @@
 
 <ul class="nav navbar-nav">
 	<li>
-		<a >
-			<?php
-			// echo $block['title'];
-			?>
-		</a>
+		<a> <?php echo $block['title']; ?> </a>
 	</li>
 	<?php 
 	foreach ($output as $key => $value) 

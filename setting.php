@@ -2,6 +2,7 @@
 $_setting = array(
 	'access' => array(
 		'1' => 'Administrator',
+		'2' => 'Member',
 		),
 	'meta_icon'         => 'logo.jpg',
 	'app_home'          => 'movie.main',
@@ -27,8 +28,11 @@ $_setting = array(
 					// 'mod'    => array('user'),
 					),
 				'title'  => 'content',
-				'tpl'    => 'container',
-				'config' => array(),
+				'tpl'    => 'div',
+				'config' => array(
+					'add_class' => 'container',
+					'add_style' => ''
+					),
 				),
 			),
 		'content' => array(
@@ -38,7 +42,7 @@ $_setting = array(
 					// 'access' => array(),
 					// 'mod'    => array('user'),
 					),
-				'title'  => 'Content',
+				'title'  => 'Content Stream',
 				'tpl'    => 'default',
 				'config' => array(),
 				),
@@ -51,10 +55,11 @@ $_setting = array(
 					// 'mod'    => array('user'),
 					),
 				'title'  => 'Logo',
-				'tpl'    => 'header_logo',
+				'tpl'    => 'default',
 				'config' => array(
-					'image' => '',
-					'url'   => ''
+					'image'  => '',
+					'is_url' => '1',
+					'url'    => ''
 					),
 				),
 			),
@@ -75,7 +80,7 @@ $_setting = array(
 					// 'access' => array(),
 					// 'mod'    => array('user'),
 					),
-				'title'  => 'User Menu',
+				'title'  => 'Login',
 				'tpl'    => 'user_menu',
 				'config' => array(
 					array(

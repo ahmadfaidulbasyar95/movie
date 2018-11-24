@@ -37,7 +37,7 @@
 		{
 			?>
 			<a href="<?php echo $sys->path['url'].'user/login'; ?>" >
-				Login
+				<?php echo $block['title']; ?>
 			</a>
 			<?php
 		}
