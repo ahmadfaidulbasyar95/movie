@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 20, 2018 at 10:28 PM
+-- Generation Time: Nov 24, 2018 at 12:07 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.0.22-0ubuntu0.17.04.1
 
@@ -47,14 +47,14 @@ CREATE TABLE `block` (
 --
 
 INSERT INTO `block` (`id`, `profill_id`, `position`, `orderby`, `title`, `name`, `show`, `tpl`, `config`, `title_show`, `created`, `updated`, `active`) VALUES
-('MjgzXzE1NDI2OTYzODQuODVfMjE0Xzo6MQ==', 'default', 'header_intro', 1, 'Logo', 'image', '[]', 'header_logo', '{\"image\":\"\",\"url\":\"\"}', 1, '2018-11-20 13:46:24', '2018-11-20 13:46:24', 1),
-('MzE0XzE1NDI2OTYzODQuODVfNjg3Xzo6MQ==', 'default', 'web_view', 5, 'content', 'layout', '[]', 'container', '[]', 1, '2018-11-20 13:46:24', '2018-11-20 21:51:58', 1),
-('NTc1XzE1NDI2OTYzODQuODVfNzhfOjox', 'default', 'content', 2, 'Content', 'mod_trim', '[]', 'default', '[]', 1, '2018-11-20 13:46:24', '2018-11-20 22:01:40', 1),
-('NTI3XzE1NDI2OTYzODQuODVfNzEzXzo6MQ==', 'default', 'header_menu', 3, 'Administrator', 'menu', '{\"access\":[\"1\"],\"mod\":[\"admin\"]}', 'header_menu', '[{\"name\":\"Movie\",\"icon\":\"fa-film\",\"link\":\"admin.movie\"},{\"name\":\"Series\",\"icon\":\"fa-clone\",\"link\":\"admin.movie_series\"},{\"name\":\"Movie+Tag\",\"icon\":\"fa-tags\",\"link\":\"admin.movie_tag\"},{\"name\":\"Website\",\"icon\":\"fa-chrome\",\"link\":\"admin.website\"},{\"name\":\"Setting\",\"icon\":\"fa-cogs\",\"link\":\"admin.setting\"},{\"name\":\"Setting+Block\",\"icon\":\"fa-cog\",\"link\":\"admin.setting_block\"}]', 1, '2018-11-20 13:46:25', '2018-11-20 13:46:25', 1),
-('ODBfMTU0MjY5NjM4NC44NV8yMTZfOjox', 'default', 'header_menu', 2, 'User Menu', 'menu', '[]', 'user_menu', '[{\"name\":\"Profill\",\"icon\":\"fa-user\",\"link\":\"user.profill\"},{\"name\":\"Change+Password\",\"icon\":\"fa-key\",\"link\":\"user.change_password\"},{\"name\":\"Logout\",\"icon\":\"fa-power-off\",\"link\":\"user.logout\"}]', 1, '2018-11-20 13:46:25', '2018-11-20 19:47:39', 1),
-('OTA5XzE1NDI2OTYzODQuODVfOTI5Xzo6MQ==', 'default', 'header_menu', 4, 'Main Menu', 'menu', '{\"mod\":[\"movie\",\"tag\",\"user\"]}', 'header_menu', '[{\"name\":\"Movies\",\"icon\":\"fa-film\",\"link\":\"movie.main\"},{\"name\":\"Movie+Tags\",\"icon\":\"fa-tags\",\"link\":\"tag.main\"}]', 1, '2018-11-20 13:46:25', '2018-11-20 13:46:25', 1),
-('OTI4XzE1NDI2OTYzODQuODVfNTQwXzo6MQ==', 'default', 'web_view', 2, 'header', 'layout', '[]', 'navbar', '[]', 1, '2018-11-20 13:46:24', '2018-11-20 19:46:32', 1),
-('OTQxXzE1NDI2OTYzODQuODVfNTIxXzo6MQ==', 'default', 'header_menu', 1, 'Search Movie', 'movie_search', '[]', 'default', '[]', 1, '2018-11-20 13:46:25', '2018-11-20 21:49:09', 1);
+('MjdfMTU0MzAzNDc1MC4yMTdfNzc2Xzo6MQ==', 'default', 'header_menu', 1, 'Search Movie', 'movie_search', '[]', 'default', '[]', 1, '2018-11-24 11:45:50', '2018-11-24 11:45:50', 1),
+('MTk1XzE1NDMwMzQ3NTAuMjE3XzI2MF86OjE=', 'default', 'web_view', 1, 'header', 'layout', '[]', 'navbar', '[]', 1, '2018-11-24 11:45:50', '2018-11-24 11:45:50', 1),
+('MTUzXzE1NDMwMzQ3NTAuMjE3Xzg0OV86OjE=', 'default', 'web_view', 2, 'content', 'layout', '[]', 'div', '{\"add_class\":\"container\",\"add_style\":\"\"}', 1, '2018-11-24 11:45:50', '2018-11-24 11:45:50', 1),
+('MzNfMTU0MzAzNDc1MC4yMTdfODY3Xzo6MQ==', 'default', 'header_menu', 3, 'Administrator', 'menu', '{\"access\":[\"1\"],\"mod\":[\"admin\"]}', 'header_menu', '[{\"name\":\"Movie\",\"icon\":\"fa-film\",\"link\":\"admin.movie\"},{\"name\":\"Series\",\"icon\":\"fa-clone\",\"link\":\"admin.movie_series\"},{\"name\":\"Movie+Tag\",\"icon\":\"fa-tags\",\"link\":\"admin.movie_tag\"},{\"name\":\"Website\",\"icon\":\"fa-chrome\",\"link\":\"admin.website\"},{\"name\":\"Setting\",\"icon\":\"fa-cogs\",\"link\":\"admin.setting\"},{\"name\":\"Setting+Block\",\"icon\":\"fa-cog\",\"link\":\"admin.setting_block\"}]', 1, '2018-11-24 11:45:50', '2018-11-24 11:45:50', 1),
+('NDQwXzE1NDMwMzQ3NTAuMjE3Xzg0N186OjE=', 'default', 'header_menu', 4, 'Main Menu', 'menu', '{\"mod\":[\"movie\",\"tag\",\"user\"]}', 'header_menu', '[{\"name\":\"Movies\",\"icon\":\"fa-film\",\"link\":\"movie.main\"},{\"name\":\"Movie+Tags\",\"icon\":\"fa-tags\",\"link\":\"tag.main\"}]', 1, '2018-11-24 11:45:50', '2018-11-24 11:45:50', 1),
+('NjI2XzE1NDMwMzQ3NTAuMjE3XzU5MF86OjE=', 'default', 'header_menu', 2, 'Login', 'menu', '[]', 'user_menu', '[{\"name\":\"Profill\",\"icon\":\"fa-user\",\"link\":\"user.profill\"},{\"name\":\"Change+Password\",\"icon\":\"fa-key\",\"link\":\"user.change_password\"},{\"name\":\"Logout\",\"icon\":\"fa-power-off\",\"link\":\"user.logout\"}]', 1, '2018-11-24 11:45:50', '2018-11-24 11:45:50', 1),
+('NTEzXzE1NDMwMzQ3NTAuMjE3XzQ2Xzo6MQ==', 'default', 'content', 1, 'Content Stream', 'mod_trim', '[]', 'default', '[]', 1, '2018-11-24 11:45:50', '2018-11-24 11:45:50', 1),
+('NTI2XzE1NDMwMzQ3NTAuMjE3XzMyNF86OjE=', 'default', 'header_intro', 1, 'Logo', 'image', '[]', 'default', '{\"url\":\"\",\"is_url\":\"1\"}', 0, '2018-11-24 11:45:50', '2018-11-24 11:46:12', 1);
 
 -- --------------------------------------------------------
 
